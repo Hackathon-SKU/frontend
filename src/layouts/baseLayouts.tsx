@@ -7,8 +7,12 @@ interface BaseLayoutProps {
 const BaseLayout = ({ protectedRoute }: BaseLayoutProps) => {
   return (
     <>
-      <Navbar />
-      <Outlet />
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-1 mt-[176px]">
+          <Outlet />
+        </main>
+      </div>
     </>
   );
 };
