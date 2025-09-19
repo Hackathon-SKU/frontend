@@ -1,5 +1,5 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
-import BaseLayout from "../layouts/baseLayouts";
+import BaseLayout from "../layouts/BaseLayout";
 import Home from "../pages/Home";
 
 const publicLayout: RouteObject[] = [
