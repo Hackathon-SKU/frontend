@@ -1,0 +1,67 @@
+import type { MainMockItem } from "../types/workers";
+
+export const mainMockItems: MainMockItem[] = [
+  {
+    id: 1,
+    name: "김*희 복지사",
+    title: "친절한 케어가 자신있는 복지사입니다",
+    info: "40대 후반 / 여성 / 경력 8년",
+    license: "사회복지사 2급",
+    field: "지적, 발달 장애",
+    image: "/main/sampleImg/sample1.svg", // 👉 이미지 경로는 직접 넣으시면 됩니다
+  },
+  {
+    id: 2,
+    name: "박*근 복지사",
+    title: "전문적 지식을 바탕으로 케어합니다",
+    info: "40대 초반 / 남성 / 경력 7년",
+    license: "사회복지사 1급",
+    field: "지적, 발달 장애",
+    image: "/main/sampleImg/sample2.svg",
+  },
+  {
+    id: 3,
+    name: "최*은 복지사",
+    title: "내 가족이라는 마음으로 임하겠습니다",
+    info: "40대 중반 / 여성 / 경력 3년",
+    license: "사회복지사 2급",
+    field: "지적, 발달 장애",
+    image: "/main/sampleImg/sampleNone.svg",
+  },
+  {
+    id: 4,
+    name: "정*진 복지사",
+    title: "젊은 패기로 성실히 돕겠습니다",
+    info: "30대 초반 / 남성 / 경력 3년",
+    license: "사회복지사 2급",
+    field: "지적, 발달 장애",
+    image: "/main/sampleImg/sample3.svg",
+  },
+  {
+    id: 5,
+    name: "정*진 복지사",
+    title: "젊은 패기로 성실히 돕겠습니다",
+    info: "30대 초반 / 남성 / 경력 3년",
+    license: "사회복지사 2급",
+    field: "지적, 발달 장애",
+    image: "/main/sampleImg/sample3.svg",
+  },
+  {
+    id: 6,
+    name: "정*진 복지사",
+    title: "젊은 패기로 성실히 돕겠습니다",
+    info: "30대 초반 / 남성 / 경력 3년",
+    license: "사회복지사 2급",
+    field: "지적, 발달 장애",
+    image: "/main/sampleImg/sample3.svg",
+  },
+  {
+    id: 7,
+    name: "정*진 복지사",
+    title: "젊은 패기로 성실히 돕겠습니다",
+    info: "30대 초반 / 남성 / 경력 3년",
+    license: "사회복지사 2급",
+    field: "지적, 발달 장애",
+    image: "/main/sampleImg/sample3.svg",
+  },
+];
