@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getUserId } from "../../utils/user";
+import { useNavigate } from "react-router-dom";
 
 type UserInfo = {
   name: string;
@@ -36,8 +37,15 @@ const UploadPost: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [titleFocus, setTitleFocus] = useState(false);
   const [noteFocus, setNoteFocus] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const accessToken = sessionStorage.getItem("accessToken");
+    if (!accessToken) {
+      alert("로그인 후 이용 가능합니다.");
+      navigate("/login"); // 로그인 페이지로 이동
+      return;
+    }
     const userId = getUserId();
     if (!userId) return;
     axios.get(`${import.meta.env.VITE_BASE_URL}user/${userId}`).then((res) => {
@@ -53,7 +61,7 @@ const UploadPost: React.FC = () => {
           : data.classification?.types || "",
       });
     });
-  }, []);
+  }, [navigate]);
 
   const handleDayClick = (d: string) => {
     setDays((prev) =>
@@ -69,26 +77,57 @@ const UploadPost: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!isValid || loading) return;
+    const accessToken = sessionStorage.getItem("accessToken");
+    if (!accessToken) {
+      alert("로그인 후 이용 가능합니다. accessToken이 없습니다.");
+      return;
+    }
     setLoading(true);
     try {
-      await axios.post(
-        `${import.meta.env.VITE_BASE_URL}posting`,
-        {
-          title,
-          periodStart: period,
-          preferredDays: days,
-          timeBands: times,
-          description: note,
-        },
+      const refreshToken = sessionStorage.getItem("refreshToken");
+      // 디버깅: userId, payload, 토큰 모두 출력
+      const userId = getUserId();
+      console.log("userId:", userId);
+      console.log("accessToken:", accessToken);
+      console.log("refreshToken:", refreshToken);
+      const payload = {
+        title,
+        periodStart: period,
+        preferredDays: days,
+        timeBands: times,
+        description: note,
+      };
+      console.log("POST /postings payload:", payload);
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}api/postings`,
+        payload,
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            ...(refreshToken ? { "X-Refresh-Token": refreshToken } : {}),
           },
         }
       );
+      console.log("POST /postings response:", res.data);
       alert("공고가 등록되었습니다.");
     } catch (e) {
-      alert("공고 등록에 실패했습니다.");
+      if (axios.isAxiosError(e)) {
+        // 서버에서 내려주는 에러 전체 출력
+        console.error("API Error:", e.response?.data || e.message, e);
+        if (e.response) {
+          console.error("Status:", e.response.status);
+          console.error("Headers:", e.response.headers);
+          console.error("Response Data:", e.response.data);
+        }
+        alert(
+          `공고 등록에 실패했습니다.\n${e.response?.data?.message || e.message}`
+        );
+      } else {
+        console.error("Unknown Error:", e);
+        alert("공고 등록에 실패했습니다.");
+      }
     } finally {
       setLoading(false);
     }

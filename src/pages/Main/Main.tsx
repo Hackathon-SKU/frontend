@@ -1,5 +1,5 @@
 // import MainHomeEmpty from "../../components/Main/MainHomeEmpty";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MainList from "../../components/Main/MainList";
 import MainNavbar from "../../components/Main/MainNavbar";
@@ -9,6 +9,14 @@ import { mainMockItems } from "../../mocks/MainMockItem";
 const Main = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const accessToken = sessionStorage.getItem("accessToken");
+    if (!accessToken) {
+      alert("로그인 후 이용 가능합니다.");
+      navigate("/login");
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -51,7 +59,7 @@ const Main = () => {
         {/* 리스트 영역 */}
         <div className="py-2 space-y-[2px] pb-[73px]">
           {mainMockItems.map((item) => (
-            <MainList item={item} />
+            <MainList key={item.id || item.userId || item.title} item={item} />
           ))}
         </div>
         {/* 모달 */}
