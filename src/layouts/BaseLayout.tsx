@@ -7,7 +7,7 @@ interface BaseLayoutProps {
 const BaseLayout = ({ protectedRoutes }: BaseLayoutProps) => {
   return (
     <>
-      <div className="min-h-screen flex flex-col mt-[30px]">
+      <div className="min-h-screen flex flex-col">
         <main className="flex-1">
           <Outlet />
         </main>
