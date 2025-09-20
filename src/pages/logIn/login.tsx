@@ -30,13 +30,10 @@ const Login: React.FC = () => {
       console.log("result:", result);
       console.log("user:", user);
 
-      // accessToken은 response header의 Authorization에서 추출
       let accessToken = null;
       let refreshToken = null;
 
-      // axios는 response.headers에서 헤더를 읽을 수 있음
       if (res.headers && res.headers.authorization) {
-        // ex: "Bearer <token>"
         const authHeader = res.headers.authorization;
         if (authHeader.startsWith("Bearer ")) {
           accessToken = authHeader.replace("Bearer ", "");
