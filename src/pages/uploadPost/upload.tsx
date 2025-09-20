@@ -46,20 +46,37 @@ const UploadPost: React.FC = () => {
       navigate("/login"); 
       return;
     }
-    const userId = getUserId();
-    if (!userId) return;
-    axios.get(`${import.meta.env.VITE_BASE_URL}user/${userId}`).then((res) => {
-      const data = res.data.result;
+    // 장애인 정보 조회 API 호출
+    axios.get(
+      `${import.meta.env.VITE_BASE_URL}profiles/disabled/info`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ).then((res) => {
+      // 콘솔로 실제 응답 구조 확인
+      console.log("profiles/disabled/info response:", res.data);
+      const data = res.data?.result || {};
+      // 필드가 없을 때 안전하게 처리
+      let age = "";
+      if (data.birthDate) {
+        const birth = new Date(data.birthDate);
+        const today = new Date();
+        age = (today.getFullYear() - birth.getFullYear()).toString();
+      }
       setUserInfo({
-        name: data.name,
-        gender: data.gender,
-        age: data.age,
-        region: data.region,
-        grade: data.grade,
-        classification: Array.isArray(data.classification?.types)
-          ? data.classification.types.join(", ")
-          : data.classification?.types || "",
+        name: data.name ?? "",
+        gender: data.gender ?? "",
+        age: age ? parseInt(age, 10) : 0,
+        region: data.region ?? "",
+        grade: "", // grade 필드 없음
+        classification: data.classification
+          ? Object.values(data.classification).join(", ")
+          : "",
       });
+    }).catch((e) => {
+      console.error("장애인 정보 조회 실패:", e);
     });
   }, [navigate]);
 

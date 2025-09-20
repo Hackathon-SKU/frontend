@@ -11,7 +11,11 @@ const RegisterType: React.FC = () => {
   const handleNext = () => {
     if (!selected) return;
     localStorage.setItem("registerRole", getRole(selected));
-    navigate("/register-email");
+    if (getRole(selected) === "CAREGIVER") {
+      navigate("/register-email");
+    } else {
+      navigate("/register-email");
+    }
   };
 
   return (
