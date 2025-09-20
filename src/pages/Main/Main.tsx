@@ -1,5 +1,6 @@
 // import MainHomeEmpty from "../../components/Main/MainHomeEmpty";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MainList from "../../components/Main/MainList";
 import MainNavbar from "../../components/Main/MainNavbar";
 import WriteModal from "../../components/Main/WriteModal";
@@ -7,6 +8,7 @@ import { mainMockItems } from "../../mocks/MainMockItem";
 
 const Main = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -54,17 +56,19 @@ const Main = () => {
         </div>
         {/* 모달 */}
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => navigate("/main/upload")}
           className="fixed bottom-[90px] right-6 bg-[#6BB1E4] border border-[#59A1D7] text-white text-[14px] font-semibold rounded-full w-[84px] h-[38px] z-40"
         >
           + 글쓰기
         </button>
+        {/* 
         {isModalOpen && (
           <WriteModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
           />
         )}
+        */}
       </div>
     </>
   );
