@@ -1,4 +1,8 @@
-import { createBrowserRouter, type RouteObject } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Outlet,
+  type RouteObject,
+} from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
 import Welcome from "../pages/Welcome";
 import Main from "../pages/Main/Main";
@@ -16,28 +20,14 @@ const publicLayout: RouteObject[] = [
       { index: true, element: <Welcome /> },
       {
         path: "main",
+        element: <Outlet />,
         children: [
           { index: true, element: <Main /> },
-          {
-            path: "profile/:id",
-            element: <ProfileHeader />,
-          },
-          {
-            path: "report",
-            element: <Report />,
-          },
-          {
-            path: "location",
-            element: <Location />,
-          },
-          {
-            path: "chat",
-            element: <Chat />,
-          },
-          {
-            path: "info",
-            element: <Info />,
-          },
+          { path: "profile/:id", element: <ProfileHeader /> },
+          { path: "report", element: <Report /> },
+          { path: "location", element: <Location /> },
+          { path: "chat", element: <Chat /> },
+          { path: "info", element: <Info /> },
         ],
       },
     ],
