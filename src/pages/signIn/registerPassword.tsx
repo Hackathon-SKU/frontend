@@ -6,6 +6,8 @@ const RegisterPW: React.FC = () => {
   const [pw2, setPw2] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [showPw2, setShowPw2] = useState(false);
+  const [pwTouched, setPwTouched] = useState(false);
+  const [pw2Touched, setPw2Touched] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,11 +27,9 @@ const RegisterPW: React.FC = () => {
     };
   }, []);
 
-  const isValid =
-    pw.length >= 8 &&
-    /[A-Za-z]/.test(pw) &&
-    /\d/.test(pw) &&
-    pw === pw2;
+  const pwValid = pw.length >= 8 && /[A-Za-z]/.test(pw) && /\d/.test(pw);
+  const pw2Valid = pw2.length > 0 && pw === pw2;
+  const isValid = pwValid && pw2Valid;
 
   const handleNext = () => {
     if (!isValid) return;
@@ -92,17 +92,17 @@ const RegisterPW: React.FC = () => {
             marginBottom: "3px"
           }}
         />
-       <div
-        style={{
-        width: "20%",
-        height: 10,
-        background: "#6BB1E4",
-        borderRadius: 10,
-        position: "absolute",
-        top: 0,
-        left: "40%",
-        }}
-      />
+        <div
+          style={{
+            width: "20%",
+            height: 10,
+            background: "#6BB1E4",
+            borderRadius: 10,
+            position: "absolute",
+            top: 0,
+            left: "40%",
+          }}
+        />
         <span
           style={{
             position: "absolute",
@@ -142,103 +142,126 @@ const RegisterPW: React.FC = () => {
 
       <div style={{ width: 330, marginTop: 48 }}>
         <div style={{ marginBottom: 32 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span style={{ color: "#8A8A8A", fontSize: 15, flex: 1 }}>비밀번호</span>
-            <button
-              type="button"
+          
+          <div style={{ position: "relative", width: "100%" }}>
+            <input
+              type={showPw ? "text" : "password"}
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+              placeholder="비밀번호"
+              style={{
+                border: "none",
+                borderBottom: "2px solid #6BB1E4",
+                outline: "none",
+                fontSize: 15,
+                background: "transparent",
+                padding: "4px 0 4px 8px",
+                width: "100%",
+                marginTop: 4,
+                color: "#222",
+              }}
+              onBlur={() => setPwTouched(true)}
+            />
+            <img
+              src={showPw ? "/signIn/eye-on.png" : "/signIn/eye-off.png"}
+              alt={showPw ? "보임" : "숨김"}
+              style={{
+                position: "absolute",
+                right: 4,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 13,
+                height: 12,
+                cursor: "pointer",
+              }}
               onClick={() => setShowPw((v) => !v)}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-                marginLeft: 4,
-                outline: "none",
-                display: "flex",
-                alignItems: "center",
-              }}
-              tabIndex={-1}
-            >
-              <img
-                src="/signIn/eye-off.png"
-                alt={showPw ? "숨김" : "보임"}
-                style={{
-                  width: 20,
-                  height: 20,
-                  opacity: 0.5,
-                }}
-              />
-            </button>
+            />
           </div>
-          <input
-            type={showPw ? "text" : "password"}
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-            placeholder="영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요."
-            style={{
-              border: "none",
-              borderBottom: "2px solid #6BB1E4",
-              outline: "none",
-              fontSize: 16,
-              background: "transparent",
-              padding: "8px 0 4px 0",
-              width: "100%",
-              marginTop: 4,
-              color: "#222",
-            }}
-          />
+          <span style={{
+            color: "#D0D0D0",
+            textAlign: "left",
+            fontSize: "10px",
+            fontStyle: "normal",
+            fontWeight: 500,
+            lineHeight: "20px",
+            letterSpacing: "-0.25px",
+            padding: "4px 0 4px 8px",
+            marginTop: 2,
+            display: "block"
+          }}>
+            영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
+          </span>
         </div>
-        {/* 비밀번호 재확인 */}
         <div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span style={{ color: "#8A8A8A", fontSize: 15, flex: 1 }}>비밀번호 재확인</span>
-            <button
-              type="button"
-              onClick={() => setShowPw2((v) => !v)}
+         
+          <div style={{ position: "relative", width: "100%" }}>
+            <input
+              type={showPw2 ? "text" : "password"}
+              value={pw2}
+              onChange={(e) => setPw2(e.target.value)}
+              placeholder="비밀번호 재확인"
               style={{
-                background: "none",
                 border: "none",
-                cursor: "pointer",
-                padding: 0,
-                marginLeft: 4,
+                borderBottom: "2px solid #6BB1E4",
                 outline: "none",
-                display: "flex",
-                alignItems: "center",
+                fontSize: 15,
+                background: "transparent",
+                padding: "4px 0 4px 8px",
+                width: "100%",
+                marginTop: 4,
+                color: "#222",
               }}
-              tabIndex={-1}
-            >
-              <img
-                src="/signIn/eye-off.png"
-                alt={showPw2 ? "숨김" : "보임"}
-                style={{
-                  width: 20,
-                  height: 20,
-                  opacity: 0.5,
-                }}
-              />
-            </button>
+              onBlur={() => setPw2Touched(true)}
+            />
+            <img
+              src={showPw2 ? "/signIn/eye-on.png" : "/signIn/eye-off.png"}
+              alt={showPw2 ? "보임" : "숨김"}
+              style={{
+                position: "absolute",
+                right: 4,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 13,
+                height: 12,
+                cursor: "pointer",
+              }}
+              onClick={() => setShowPw2((v) => !v)}
+            />
           </div>
-          <input
-            type={showPw2 ? "text" : "password"}
-            value={pw2}
-            onChange={(e) => setPw2(e.target.value)}
-            placeholder=""
-            style={{
-              border: "none",
-              borderBottom: "2px solid #6BB1E4",
-              outline: "none",
-              fontSize: 16,
-              background: "transparent",
-              padding: "8px 0 4px 0",
-              width: "100%",
-              marginTop: 4,
-              color: "#222",
-            }}
-          />
+            {pw2Touched && pw2.length > 0 && pw !== pw2 ? (
+            <span style={{
+              color: "#FF4D4F",
+              textAlign: "left",
+              fontSize: "10px",
+              fontStyle: "normal",
+              fontWeight: 500,
+              lineHeight: "30px",
+              letterSpacing: "-0.25px",
+              padding: "4px 0 4px 8px",
+              marginTop: 2,
+              display: "block"
+            }}>
+              비밀번호가 일치하지 않습니다.
+            </span>
+            ) : pwTouched && pw.length > 0 && !pwValid ? (
+            <span style={{
+              color: "#FF4D4F",
+              textAlign: "left",
+              fontSize: "10px",
+              fontStyle: "normal",
+              fontWeight: 500,
+              lineHeight: "20px",
+              letterSpacing: "-0.25px",
+              padding: "4px 0 4px 8px",
+              marginTop: 2,
+              display: "block"
+            }}>
+              영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
+            </span>
+            ) : null}
         </div>
       </div>
 
-      {/* 하단 버튼 */}
       <button
         style={{
           position: "absolute",
@@ -263,5 +286,4 @@ const RegisterPW: React.FC = () => {
     </div>
   );
 };
-
 export default RegisterPW;
