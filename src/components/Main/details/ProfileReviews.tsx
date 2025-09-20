@@ -1,5 +1,7 @@
+import type { CaregiverProfile } from "../../../types/caregivers";
+
 interface Props {
-  profile: number;
+  profile: CaregiverProfile;
 }
 
 const ProfileReviews = ({ profile }: Props) => {

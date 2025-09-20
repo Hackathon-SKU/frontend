@@ -4,7 +4,7 @@ import Welcome from "../pages/Welcome";
 import Main from "../pages/Main/Main";
 import Report from "../pages/Main/Report";
 import Location from "../pages/Main/Location";
-import Chat from "../pages/Main/Chat/Chat";
+import Chat from "../pages/Main/Chat";
 import Info from "../pages/Main/Info";
 import RegisterType from "../pages/signIn/registerType";
 import RegisterEmail from "../pages/signIn/registerEmail";

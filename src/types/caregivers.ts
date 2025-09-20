@@ -14,10 +14,10 @@ export interface MainMockItem {
 export interface CaregiverProfile {
   userId: number;
   name: string;
-  gender: "MEN" | "WOMEN"; // 성별 ENUM
+  gender: "MEN" | "WOMEN";
   birthDate: string;
-  role: "CAREGIVER" | "USER" | "ADMIN"; // 역할 ENUM (필요에 따라 확장)
-  profileImgUrl: string;
+  role: "CAREGIVER" | "USER" | "ADMIN";
+  profileImgUrl?: string;
   career_years: number;
   service_categories: {
     categories: string[];

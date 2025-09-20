@@ -7,9 +7,8 @@ interface Props {
 
 const MainList = ({ item }: Props) => {
   const navigate = useNavigate();
-
   const clickProfileId = () => {
-    navigate(`/main/profile/${item.id}`);
+    navigate(`/main/profile/disabled/${item.id}`);
   };
 
   return (

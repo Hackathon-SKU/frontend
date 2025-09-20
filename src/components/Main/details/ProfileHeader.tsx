@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { mainMockItems } from "../../../mocks/MainMockItem";
+import type { CaregiverProfile } from "../../../types/caregivers";
 
 interface Props {
-  profile: number;
+  profile: CaregiverProfile;
 }
 
 const ProfileHeader = ({ profile }: Props) => {
