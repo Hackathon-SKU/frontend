@@ -12,7 +12,7 @@ import RegisterPW from "../pages/signIn/registerPassword";
 import RegisterInfo from "../pages/signIn/registerInfo";
 import DisabledRegist from "../pages/signIn/disabledRegist";
 import RegisterEnd from "../pages/signIn/registerEnd";
-import ProfilePage from "../pages/Main/Profile/Profile";
+import DisabledPage from "../pages/Main/Profile/Disabled";
 import UploadPost from "../pages/uploadPost/upload";
 import Login from "../pages/logIn/login";
 
@@ -29,42 +29,46 @@ const publicLayout: RouteObject[] = [
       { path: "register-info", element: <RegisterInfo /> },
       { path: "disabledRegist", element: <DisabledRegist /> },
       { path: "register-end", element: <RegisterEnd /> },
+      {
+        path: "main",
+        children: [
+          { index: true, element: <Main /> },
+          // { path: "detail", element: <Details /> }, // Details import 및 라우트 제거
+          {
+            path: "disabled/:id",
+            element: <DisabledPage />,
+          },
+          {
+            path: "report",
+            element: <Report />,
+          },
+          {
+            path: "location",
+            element: <Location />,
+          },
+          {
+            path: "chat",
+            element: <Chat />,
+          },
+          {
+            path: "info",
+            element: <Info />,
+          },
+          {
+            path: "upload",
+            element: <UploadPost />,
+          },
+        ],
+      },
     ],
   },
 ];
 
 const privateLayout: RouteObject[] = [
   {
-    path: "/main",
-    element: <BaseLayout protectedRoutes={true} />,
-    children: [
-      { index: true, element: <Main /> },
-      // { path: "detail", element: <Details /> }, // Details import 및 라우트 제거
-      {
-        path: "profile/:id",
-        element: <ProfilePage />,
-      },
-      {
-        path: "report",
-        element: <Report />,
-      },
-      {
-        path: "location",
-        element: <Location />,
-      },
-      {
-        path: "chat",
-        element: <Chat />,
-      },
-      {
-        path: "info",
-        element: <Info />,
-      },
-      {
-        path: "upload",
-        element: <UploadPost />,
-      },
-    ],
+    // path: "/main",
+    // element: <BaseLayout protectedRoutes={true} />,
+    // children: [{ index: true, element: <Main /> }],
   },
 ];
 

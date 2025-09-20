@@ -1,5 +1,5 @@
 // import MainHomeEmpty from "../../components/Main/MainHomeEmpty";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MainList from "../../components/Main/MainList";
 import MainNavbar from "../../components/Main/MainNavbar";
@@ -7,14 +7,6 @@ import { mainDisabledMocks } from "../../mocks/MainMockItem"; // mainMockItems i
 
 const Main = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const accessToken = sessionStorage.getItem("accessToken");
-    if (!accessToken) {
-      alert("로그인 후 이용 가능합니다.");
-      navigate("/login");
-    }
-  }, [navigate]);
 
   return (
     <>
@@ -25,7 +17,7 @@ const Main = () => {
           <img
             src="/welcome/mainBg.svg"
             alt="지도 배경"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 object-cover w-full h-full"
           />
           {/* 사람 아이콘 자리 */}
           <div className="absolute top-2 left-4">
