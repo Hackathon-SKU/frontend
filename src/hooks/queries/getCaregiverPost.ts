@@ -4,11 +4,11 @@ import { QEURY_KEY } from "../../constants/LocalStorage";
 import { getCaregiverPost } from "../../apis/caregiverPost";
 
 //
-export function useGetCaregiverPost(caregiver: string) {
+export function useGetCaregiverPost(caregiverId: string) {
   return useQuery<ResponseUserProfileDto>({
-    queryKey: [QEURY_KEY.caregiver, caregiver],
-    queryFn: () => getCaregiverPost(caregiver),
-    enabled: !!caregiver,
+    queryKey: [QEURY_KEY.caregiver, caregiverId],
+    queryFn: () => getCaregiverPost(caregiverId),
+    enabled: !!caregiverId,
     staleTime: 1000 * 60,
   });
 }

@@ -1,8 +1,10 @@
+import type { CaregiverProfile } from "../../../types/caregivers";
+
 interface Props {
-  profile: number;
+  profile: CaregiverProfile;
 }
 
-const ProfileInfo = ({ number }: Props) => {
+const ProfileInfo = ({ profile }: Props) => {
   return (
     <div className="space-y-1 text-[15px] bg-[#EEEEEE]">
       {/* 자격증 */}

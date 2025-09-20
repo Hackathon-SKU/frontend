@@ -4,13 +4,11 @@ import ProfileHeader from "../../../components/Main/details/ProfileHeader";
 import ProfileInfo from "../../../components/Main/details/ProfileInfo";
 import ProfileReviews from "../../../components/Main/details/ProfileReviews";
 import { useGetCaregiverPost } from "../../../hooks/queries/getCaregiverPost";
+import type { CaregiverProfile } from "../../../types/caregivers";
 
 const ProfilePage = () => {
-  const { id } = useParams<{ id: string }>(); // URL: /main/profile/:id
+  const { id } = useParams<{ id: string }>();
   const { data, isLoading, error } = useGetCaregiverPost(id!);
-
-  if (isLoading) return <div>로딩중...</div>;
-  if (error) return <div>에러 발생</div>;
 
   return (
     <>
@@ -30,9 +28,9 @@ const ProfilePage = () => {
       </header>
 
       <div className="bg-[#EEEEEE] flex flex-col space-y-1">
-        <ProfileHeader profile={data?.result?.userId as number} />
-        <ProfileInfo profile={data?.result?.userId as number} />
-        <ProfileReviews profile={data?.result?.userId as number} />
+        <ProfileHeader profile={data!.result as CaregiverProfile} />
+        <ProfileInfo profile={data!.result as CaregiverProfile} />
+        <ProfileReviews profile={data!.result as CaregiverProfile} />
       </div>
     </>
   );
