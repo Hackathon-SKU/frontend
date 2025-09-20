@@ -34,7 +34,7 @@ const RegisterPW: React.FC = () => {
   const handleNext = () => {
     if (!isValid) return;
     localStorage.setItem("registerPassword", pw);
-    navigate("/register-name");
+    navigate("/register-info");
   };
 
   return (
@@ -140,7 +140,7 @@ const RegisterPW: React.FC = () => {
         </span>
       </div>
 
-      <div style={{ width: 330, marginTop: 48 }}>
+      <div style={{ width: 353, marginTop: 48 }}>
         <div style={{ marginBottom: 32 }}>
           
           <div style={{ position: "relative", width: "100%" }}>
@@ -235,7 +235,7 @@ const RegisterPW: React.FC = () => {
               fontSize: "10px",
               fontStyle: "normal",
               fontWeight: 500,
-              lineHeight: "30px",
+              lineHeight: "20px",
               letterSpacing: "-0.25px",
               padding: "4px 0 4px 8px",
               marginTop: 2,
