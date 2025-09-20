@@ -2,6 +2,7 @@ import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
 // import Home from "../pages/Home";
 import RegisterType from "../pages/signIn/registerType";
+import RegisterEmail from "../pages/signIn/registerEmail";
 import { Navigate } from "react-router-dom";
 
 const publicLayout: RouteObject[] = [
@@ -11,6 +12,7 @@ const publicLayout: RouteObject[] = [
     children: [
       { index: true, element: <Navigate to="/register-type" replace /> },
       { path: "register-type", element: <RegisterType /> },
+      { path: "register-email", element: <RegisterEmail /> },
     ],
   },
 ];
