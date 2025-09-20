@@ -58,7 +58,7 @@ const Main = () => {
         <button
           onClick={() => navigate("/main/upload")}
           className="fixed bottom-[90px] right-6 bg-[#6BB1E4] border border-[#59A1D7] text-white text-[14px] font-semibold rounded-full w-[84px] h-[38px] z-40"
-        >
+        >ㅑ
           + 글쓰기
         </button>
         {/* 

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterEnd: React.FC = () => {
   useEffect(() => {
@@ -17,6 +18,8 @@ const RegisterEnd: React.FC = () => {
       document.body.style.padding = originalBodyPadding;
     };
   }, []);
+
+  const navigate = useNavigate();
 
   return (
     <div
@@ -46,7 +49,7 @@ const RegisterEnd: React.FC = () => {
         src="/signIn/check.png"
         alt="check"
         style={{
-        marginTop: -40,
+          marginTop: -40,
           width: 78,
           height: 78,
           marginBottom: 38,
@@ -89,11 +92,11 @@ const RegisterEnd: React.FC = () => {
           fontWeight: 600,
           letterSpacing: 2,
         }}
+        onClick={() => navigate("/main")}
       >
         시작하기
       </button>
     </div>
-    
   );
 };
 
