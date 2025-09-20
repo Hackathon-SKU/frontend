@@ -173,17 +173,18 @@ const DisabledRegist: React.FC = () => {
     const email = localStorage.getItem("registerEmail") || "";
     const password = localStorage.getItem("registerPassword") || "";
     const name = localStorage.getItem("registerName") || "";
-    const gender = localStorage.getItem("registerGender") || "";
+    let gender = localStorage.getItem("registerGender") || "";
     const birth = localStorage.getItem("registerBirth") || "";
     const role = "DISABLED";
-    // region 등 추가 정보 필요시 localStorage에서 꺼내기
     const registrationNumber = regNum;
     const classification = {
       grade,
       types: selectedTypes,
     };
 
-    // yyyyMMdd -> yyyy-MM-dd 변환
+    if (gender === "남" || gender === "MALE" || gender === "MEN") gender = "MEN";
+    else if (gender === "여" || gender === "FEMALE" || gender === "WOMEN") gender = "WOMEN";
+
     const birthDate =
       birth.length === 8
         ? `${birth.slice(0, 4)}-${birth.slice(4, 6)}-${birth.slice(6, 8)}`
@@ -193,16 +194,21 @@ const DisabledRegist: React.FC = () => {
       await axios.post(
         `${import.meta.env.VITE_BASE_URL}/auth/join`,
         {
+          name,
           email,
           password,
-          name,
           gender,
           birthDate,
           role,
           registrationNumber,
           classification,
         },
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: {
+            "accept": "*/*",
+            "Content-Type": "application/json",
+          },
+        }
       );
       navigate("/register-end");
     } catch (e) {
