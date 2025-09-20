@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
 interface BaseLayoutProps {
   protectedRoutes: boolean;
 }
@@ -6,10 +7,11 @@ interface BaseLayoutProps {
 const BaseLayout = ({ protectedRoutes }: BaseLayoutProps) => {
   return (
     <>
-      <div className="min-h-screen flex flex-col">
-        <main className="flex-1 mt-[176px]">
+      <div className="min-h-screen flex flex-col mt-[30px]">
+        <main className="flex-1">
           <Outlet />
         </main>
+        <Footer />
       </div>
     </>
   );

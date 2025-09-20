@@ -1,12 +1,12 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
-import Home from "../pages/Home";
+import MainHome from "../pages/MainHome";
 
 const publicLayout: RouteObject[] = [
   {
     path: "/",
     element: <BaseLayout protectedRoutes={false} />,
-    children: [{ index: true, element: <Home /> }],
+    children: [{ index: true, element: <MainHome /> }],
   },
 ];
 
