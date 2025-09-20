@@ -6,6 +6,7 @@ import Report from "../pages/Main/Report";
 import Location from "../pages/Main/Location";
 import Chat from "../pages/Main/Chat";
 import Info from "../pages/Main/Info";
+import Details from "../components/Main/Details";
 
 const publicLayout: RouteObject[] = [
   {
@@ -17,6 +18,10 @@ const publicLayout: RouteObject[] = [
         path: "main",
         children: [
           { index: true, element: <Main /> },
+          {
+            path: "detail",
+            element: <Details />,
+          },
           {
             path: "report",
             element: <Report />,
