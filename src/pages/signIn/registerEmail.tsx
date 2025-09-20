@@ -162,7 +162,7 @@ const RegisterEmail: React.FC = () => {
 
       <div
         style={{
-          marginTop: 84,
+          marginTop: 64,
           width: "100%",
           marginLeft: "50px",
           textAlign: "left",

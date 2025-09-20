@@ -80,7 +80,7 @@ const RegisterType: React.FC = () => {
         <div
           style={{
             width: "20%",
-            height: 10,
+            height: 10, 
             background: "#6BB1E4",
             borderRadius: 10,
             position: "absolute",
@@ -106,7 +106,7 @@ const RegisterType: React.FC = () => {
 
       <div
         style={{
-          marginTop: 84,
+          marginTop: 64,
           width: "100%",
           marginLeft: "50px",
           textAlign: "left",

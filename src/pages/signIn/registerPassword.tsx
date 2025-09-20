@@ -119,12 +119,11 @@ const RegisterPW: React.FC = () => {
         </span>
       </div>
 
-      {/* 타이틀 */}
       <div
         style={{
           marginTop: 64,
           width: "100%",
-          marginLeft: "32px",
+          marginLeft: "50px",
           textAlign: "left",
         }}
       >
@@ -141,9 +140,7 @@ const RegisterPW: React.FC = () => {
         </span>
       </div>
 
-      {/* 비밀번호 입력 */}
       <div style={{ width: 330, marginTop: 48 }}>
-        {/* 비밀번호 */}
         <div style={{ marginBottom: 32 }}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <span style={{ color: "#8A8A8A", fontSize: 15, flex: 1 }}>비밀번호</span>
