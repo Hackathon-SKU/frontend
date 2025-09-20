@@ -3,8 +3,6 @@ import axios from "axios";
 import { setUserId } from "../../utils/user";
 import { useNavigate } from "react-router-dom";
 
-// TODO : 로그인 ui 완료 후 API 연결, 복지사 회원가입 와프 만들기
-
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
@@ -25,13 +23,40 @@ const Login: React.FC = () => {
         { email, password: pw },
         { headers: { "Content-Type": "application/json" } }
       );
-      // 로그인 성공 시 userId 저장
-      if (res.data?.result?.userId) {
-        setUserId(res.data.result.userId);
+      console.log("로그인 응답:", res.data);
+
+      const result = res.data?.result;
+      const user = result?.user;
+      console.log("result:", result);
+      console.log("user:", user);
+
+      let accessToken = null;
+      let refreshToken = null;
+
+      if (res.headers && res.headers.authorization) {
+        const authHeader = res.headers.authorization;
+        if (authHeader.startsWith("Bearer ")) {
+          accessToken = authHeader.replace("Bearer ", "");
+          sessionStorage.setItem("accessToken", accessToken);
+          console.log("accessToken 저장(sessionStorage):", accessToken);
+        }
       }
+
+      if (user?.userId) {
+        sessionStorage.setItem("userId", String(user.userId));
+        setUserId(user.userId);
+        console.log("userId 저장(sessionStorage):", user.userId);
+      }
+
+      console.log("sessionStorage accessToken:", sessionStorage.getItem("accessToken"));
+
       alert("로그인 성공");
       navigate("/main");
+      setTimeout(() => {
+        console.log("navigate 후 sessionStorage accessToken:", sessionStorage.getItem("accessToken"));
+      }, 100);
     } catch (e) {
+      console.error("로그인 에러:", e);
       alert("로그인에 실패했습니다.");
     } finally {
       setLoading(false);
