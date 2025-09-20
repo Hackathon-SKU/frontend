@@ -13,6 +13,7 @@ import RegisterPW from "../pages/signIn/registerPassword";
 import RegisterInfo from "../pages/signIn/registerInfo";
 import DisabledRegist from "../pages/signIn/disabledRegist";
 import RegisterEnd from "../pages/signIn/registerEnd";
+import UploadPost from "../pages/uploadPost/upload";
 
 const publicLayout: RouteObject[] = [
   {
@@ -50,6 +51,10 @@ const publicLayout: RouteObject[] = [
           {
             path: "info",
             element: <Info />,
+          },
+          {
+            path: "upload",
+            element: <UploadPost />,
           },
         ],
       },
