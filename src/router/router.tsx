@@ -7,6 +7,12 @@ import Location from "../pages/Main/Location";
 import Chat from "../pages/Main/Chat";
 import Info from "../pages/Main/Info";
 import ProfileHeader from "../components/Main/details/ProfileHeader";
+import RegisterType from "../pages/signIn/registerType";
+import RegisterEmail from "../pages/signIn/registerEmail";
+import RegisterPW from "../pages/signIn/registerPassword";
+import RegisterInfo from "../pages/signIn/registerInfo";
+import DisabledRegist from "../pages/signIn/disabledRegist";
+import RegisterEnd from "../pages/signIn/registerEnd";
 
 const publicLayout: RouteObject[] = [
   {
@@ -14,10 +20,17 @@ const publicLayout: RouteObject[] = [
     element: <BaseLayout protectedRoutes={false} />,
     children: [
       { index: true, element: <Welcome /> },
+      { path: "register-type", element: <RegisterType /> },
+      { path: "register-email", element: <RegisterEmail /> },
+      { path: "register-password", element: <RegisterPW /> },
+      { path: "register-info", element: <RegisterInfo /> },
+      { path: "disabledRegist", element: <DisabledRegist /> },
+      { path: "register-end", element: <RegisterEnd /> },
       {
         path: "main",
         children: [
           { index: true, element: <Main /> },
+          // { path: "detail", element: <Details /> }, // Details import 및 라우트 제거
           {
             path: "profile/:id",
             element: <ProfileHeader />,
