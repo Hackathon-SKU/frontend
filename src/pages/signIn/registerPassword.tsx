@@ -82,7 +82,6 @@ const RegisterPW: React.FC = () => {
         </div>
       </div>
 
-      {/* 진행바 */}
       <div style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}>
         <div
           style={{
@@ -90,19 +89,20 @@ const RegisterPW: React.FC = () => {
             height: 10,
             background: "#F2F2F2",
             borderRadius: 10,
+            marginBottom: "3px"
           }}
         />
-        <div
-          style={{
-            width: "40%",
-            height: 10,
-            background: "#6BB1E4",
-            borderRadius: 10,
-            position: "absolute",
-            top: 0,
-            left: 0,
-          }}
-        />
+       <div
+        style={{
+        width: "20%",
+        height: 10,
+        background: "#6BB1E4",
+        borderRadius: 10,
+        position: "absolute",
+        top: 0,
+        left: "40%",
+        }}
+      />
         <span
           style={{
             position: "absolute",

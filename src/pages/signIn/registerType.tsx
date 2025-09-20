@@ -74,6 +74,7 @@ const RegisterType: React.FC = () => {
             height: 10,
             background: "#F2F2F2",
             borderRadius: 10,
+            marginBottom: "3px"
           }}
         />
         <div

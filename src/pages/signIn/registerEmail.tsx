@@ -130,6 +130,7 @@ const RegisterEmail: React.FC = () => {
         background: "#F2F2F2",
         borderRadius: 10,
         position: "relative",
+        marginBottom: "3px"
         }}
       />
       <div
