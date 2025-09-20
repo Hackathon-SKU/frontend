@@ -192,7 +192,7 @@ const DisabledRegist: React.FC = () => {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth/join`,
+        `${import.meta.env.VITE_BASE_URL}auth/join`,
         {
           name,
           email,
