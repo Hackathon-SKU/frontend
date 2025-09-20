@@ -1,19 +1,49 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
-import MainHome from "../pages/MainHome";
+import Welcome from "../pages/Welcome";
+import Main from "../pages/Main/Main";
+import Report from "../pages/Main/Report";
+import Location from "../pages/Main/Location";
+import Chat from "../pages/Main/Chat";
+import Info from "../pages/Main/Info";
 
 const publicLayout: RouteObject[] = [
   {
     path: "/",
     element: <BaseLayout protectedRoutes={false} />,
-    children: [{ index: true, element: <MainHome /> }],
+    children: [
+      { index: true, element: <Welcome /> },
+      {
+        path: "main",
+        children: [
+          { index: true, element: <Main /> },
+          {
+            path: "report",
+            element: <Report />,
+          },
+          {
+            path: "location",
+            element: <Location />,
+          },
+          {
+            path: "chat",
+            element: <Chat />,
+          },
+          {
+            path: "info",
+            element: <Info />,
+          },
+        ],
+      },
+    ],
   },
 ];
 
 const privateLayout: RouteObject[] = [
   {
-    path: "",
+    path: "/main",
     element: <BaseLayout protectedRoutes={true} />,
+    children: [{ index: true, element: <Main /> }],
   },
 ];
 
