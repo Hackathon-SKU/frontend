@@ -303,7 +303,7 @@ const UploadPost: React.FC = () => {
             color: isValid ? "#fff" : "#8A8A8A",
             fontWeight: 600,
             fontSize: 16,
-            marginBottom: 80, 
+            marginBottom: 100, 
             cursor: isValid && !loading ? "pointer" : "not-allowed",
             letterSpacing: 1,
             transition: "background 0.2s",
