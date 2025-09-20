@@ -40,25 +40,40 @@ const UploadPost: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // --- GET 요청 및 내 정보 조회 코드 전체 주석 처리 ---
+    /*
     const accessToken = sessionStorage.getItem("accessToken");
+    let userId = sessionStorage.getItem("userId");
+    if (!userId) {
+      const idFromUtil = getUserId();
+      if (idFromUtil) userId = String(idFromUtil);
+    }
+
+    console.log("sessionStorage 전체:", { ...sessionStorage });
+    console.log("accessToken:", accessToken);
+    console.log("userId:", userId);
+
     if (!accessToken) {
       alert("로그인 후 이용 가능합니다.");
-      navigate("/login"); 
+      navigate("/login");
       return;
     }
-    // 장애인 정보 조회 API 호출
-    axios.get(
-      `${import.meta.env.VITE_BASE_URL}profiles/disabled/info`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    ).then((res) => {
-      // 콘솔로 실제 응답 구조 확인
-      console.log("profiles/disabled/info response:", res.data);
+    if (!userId) {
+      alert("로그인 정보가 올바르지 않습니다. 다시 로그인 해주세요.");
+      navigate("/login");
+      return;
+    }
+
+    const url = `${import.meta.env.VITE_BASE_URL}profiles/disabled/info/${userId}`;
+    console.log("GET 내 정보 요청 URL:", url);
+
+    axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }).then((res) => {
+      console.log("내 정보 조회 응답:", res);
       const data = res.data?.result || {};
-      // 필드가 없을 때 안전하게 처리
       let age = "";
       if (data.birthDate) {
         const birth = new Date(data.birthDate);
@@ -70,14 +85,21 @@ const UploadPost: React.FC = () => {
         gender: data.gender ?? "",
         age: age ? parseInt(age, 10) : 0,
         region: data.region ?? "",
-        grade: "", // grade 필드 없음
+        grade: "",
         classification: data.classification
           ? Object.values(data.classification).join(", ")
           : "",
       });
     }).catch((e) => {
-      console.error("장애인 정보 조회 실패:", e);
+      if (e.response) {
+        console.error("내 정보 조회 실패 응답:", e.response);
+        alert(`내 정보 조회에 실패했습니다.\n${e.response.status} ${e.response.statusText}`);
+      } else {
+        console.error("내 정보 조회 실패:", e);
+        alert("내 정보 조회에 실패했습니다.");
+      }
     });
+    */
   }, [navigate]);
 
   const handleDayClick = (d: string) => {
@@ -128,7 +150,7 @@ const UploadPost: React.FC = () => {
       );
       console.log("POST /postings response:", res.data);
       alert("공고가 등록되었습니다.");
-      navigate("/main"); // 등록 성공 시 메인으로 이동
+      navigate("/main");
     } catch (e) {
       if (axios.isAxiosError(e)) {
         console.error("API Error:", e.response?.data || e.message, e);
@@ -183,37 +205,6 @@ const UploadPost: React.FC = () => {
     </div>
 
       <div style={{ padding: "22px 16px 0 19px" }}>
-        <div style={{ fontWeight: 600, fontSize: 20, marginBottom: 8 }}>
-          장애인 정보
-        </div>
-        <div
-          style={{
-            border: "1px solid #6BB1E4",
-            borderRadius: 12,
-            padding: "8px 16px",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            background: "#FFFFFF",
-            fontSize: 15,
-            marginBottom: 24,
-          }}
-        >
-          <img src="/uploadPost/icon.png" alt="아이콘" style={{ width: 12, height: 15 }} />
-          <span style={{ fontWeight: 600 }}>
-            {userInfo ? maskName(userInfo.name) : ""}
-          </span>
-          <span style={{ color: "#888" }}>|</span>
-          <span>{userInfo ? genderKor(userInfo.gender) : ""}</span>
-          <span style={{ color: "#888" }}>|</span>
-          <span>{userInfo ? `${userInfo.age}세` : ""}</span>
-          <span style={{ color: "#888" }}>|</span>
-          <span>{userInfo ? userInfo.region : ""}</span>
-          <span style={{ color: "#888" }}>|</span>
-          <span>{userInfo ? `${userInfo.grade}` : ""}</span>
-          <span style={{ color: "#888" }}>|</span>
-          <span>{userInfo ? userInfo.classification : ""}</span>
-        </div>
 
         <div style={{ fontWeight: 600, fontSize: 20, marginBottom: 8 }}>
           제목
@@ -371,7 +362,7 @@ const UploadPost: React.FC = () => {
           {loading ? "등록 중..." : "작성 완료"}
         </button>
       </div>
-    </div>
+          </div>
   );
 };
 
