@@ -1,9 +1,10 @@
 // import MainHomeEmpty from "../../components/Main/MainHomeEmpty";
 import { useEffect } from "react";
+import MainHomeEmpty from "../../components/Main/MainHomeEmpty";
 import { useNavigate } from "react-router-dom";
 import MainList from "../../components/Main/MainList";
 import MainNavbar from "../../components/Main/MainNavbar";
-import { mainDisabledMocks } from "../../mocks/MainMockItem"; // mainMockItems import 추가
+import { mainDisabledMocks, mainMockItems } from "../../mocks/MainMockItem"; // mainMockItems import 추가
 
 const Main = () => {
   const navigate = useNavigate();
@@ -15,6 +16,11 @@ const Main = () => {
       navigate("/login");
     }
   }, [navigate]);
+
+  // 리스트가 없으면 MainHomeEmpty, 있으면 리스트와 UI 렌더
+  if (!mainDisabledMocks.length || !mainDisabledMocks.some((it) => it.id)) {
+    return <MainHomeEmpty />;
+  }
 
   return (
     <>
@@ -50,11 +56,10 @@ const Main = () => {
             </button>
           </div>
         </div>
-
         {/* 리스트 영역 */}
-        <div className="py-2 space-y-[8px] pb-[73px]">
-          {mainDisabledMocks.map((item) => (
-            <MainList item={item} />
+        <div className="py-2 space-y-[2px] pb-[73px]">
+          {mainMockItems.map((item) => (
+            <MainList key={item.id || item.title} item={item} />
           ))}
         </div>
         {/* 모달 */}
