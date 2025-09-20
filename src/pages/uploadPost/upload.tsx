@@ -85,7 +85,6 @@ const UploadPost: React.FC = () => {
     setLoading(true);
     try {
       const refreshToken = sessionStorage.getItem("refreshToken");
-      // 디버깅: userId, payload, 토큰 모두 출력
       const userId = getUserId();
       console.log("userId:", userId);
       console.log("accessToken:", accessToken);
@@ -112,9 +111,9 @@ const UploadPost: React.FC = () => {
       );
       console.log("POST /postings response:", res.data);
       alert("공고가 등록되었습니다.");
+      navigate("/main"); // 등록 성공 시 메인으로 이동
     } catch (e) {
       if (axios.isAxiosError(e)) {
-        // 서버에서 내려주는 에러 전체 출력
         console.error("API Error:", e.response?.data || e.message, e);
         if (e.response) {
           console.error("Status:", e.response.status);
