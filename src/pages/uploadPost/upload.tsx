@@ -40,8 +40,7 @@ const UploadPost: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // --- GET 요청 및 내 정보 조회 코드 전체 주석 처리 ---
-    /*
+   
     const accessToken = sessionStorage.getItem("accessToken");
     let userId = sessionStorage.getItem("userId");
     if (!userId) {
@@ -99,7 +98,7 @@ const UploadPost: React.FC = () => {
         alert("내 정보 조회에 실패했습니다.");
       }
     });
-    */
+    
   }, [navigate]);
 
   const handleDayClick = (d: string) => {
