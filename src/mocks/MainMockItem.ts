@@ -8,7 +8,7 @@ export const mainMockItems: MainMockItem[] = [
     info: "40대 후반 / 여성 / 경력 8년",
     license: "사회복지사 2급",
     field: "지적, 발달 장애",
-    image: "/main/sampleImg/sample1.svg", // 👉 이미지 경로는 직접 넣으시면 됩니다
+    image: "/main/sampleImg/sample1.svg",
   },
   {
     id: 2,

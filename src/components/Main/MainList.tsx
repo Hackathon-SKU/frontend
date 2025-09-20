@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { MainMockItem } from "../../types/workers";
 
 interface Props {
@@ -6,8 +6,17 @@ interface Props {
 }
 
 const MainList = ({ item }: Props) => {
+  const navigate = useNavigate();
+
+  const clickProfileId = () => {
+    navigate(`/profile/${item.id}`);
+  };
+
   return (
-    <Link to="/main/detail" className="flex items-start bg-white p-4 w-full">
+    <button
+      onClick={clickProfileId}
+      className="flex items-start bg-white p-4 w-full"
+    >
       {/* 프로필 이미지 */}
       <img
         src={item.image}
@@ -41,7 +50,7 @@ const MainList = ({ item }: Props) => {
           </div>
         </div>
       </div>
-    </Link>
+    </button>
   );
 };
 
