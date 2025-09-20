@@ -72,13 +72,8 @@ const Welcome = () => {
           프로필 만들기
         </button>
         <button
-<<<<<<< HEAD
           className="text-[#22222280] font-[600] text-[16px]"
           onClick={() => window.location.href = '/login'}
-=======
-          onClick={() => navigate("/login")}
-          className="text-[#22222280] font-[600] text-[16px]"
->>>>>>> origin/develop
         >
           로그인
         </button>
