@@ -1,8 +1,4 @@
-interface Props {
-  profile: number;
-}
-
-const ProfileInfo = ({ number }: Props) => {
+const ProfileInfo = () => {
   return (
     <div className="space-y-1 text-[15px] bg-[#EEEEEE]">
       {/* 자격증 */}

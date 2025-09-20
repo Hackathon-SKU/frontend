@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const MainHomeEmpty = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col min-h-[730px] bg-[#F2F2F2] pb-[12px]">
       {/* 본문 */}
@@ -23,7 +26,10 @@ const MainHomeEmpty = () => {
 
       {/* 하단 버튼 */}
       <div className="px-[28px]">
-        <button className="w-[353px] h-[50px] bg-[#6BB1E4] text-[16px] text-white border border-[#59A1D7] font-semibold rounded-full">
+        <button
+          onClick={() => navigate("/main/upload")}
+          className="w-[353px] h-[50px] bg-[#6BB1E4] text-[16px] text-white border border-[#59A1D7] font-semibold rounded-full"
+        >
           모집 공고를 작성해보세요
         </button>
       </div>

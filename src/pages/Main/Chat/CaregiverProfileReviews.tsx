@@ -1,8 +1,4 @@
-interface Props {
-  profile: number;
-}
-
-const ProfileReviews = ({ profile }: Props) => {
+const ProfileReviews = () => {
   return (
     <div className="p-4 bg-white">
       <div className="flex items-center mb-3 gap-[7px]">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setUserId } from "../../utils/user"; // 추가
 
 const DISABLED_TYPES = [
   "지체 장애",
@@ -191,8 +192,8 @@ const DisabledRegist: React.FC = () => {
         : "";
 
     try {
-      await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth/join`,
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}auth/join`,
         {
           name,
           email,
@@ -210,6 +211,10 @@ const DisabledRegist: React.FC = () => {
           },
         }
       );
+      // userId 저장
+      if (response.data?.result?.userId) {
+        setUserId(response.data.result.userId);
+      }
       navigate("/register-end");
     } catch (e) {
       alert("회원가입에 실패했습니다.");
