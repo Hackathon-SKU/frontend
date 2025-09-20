@@ -59,14 +59,14 @@ const Main = () => {
         {/* 리스트 영역 */}
         <div className="py-2 space-y-[2px] pb-[73px]">
           {mainMockItems.map((item) => (
-            <MainList key={item.id || item.userId || item.title} item={item} />
+            <MainList key={item.id || item.title} item={item} />
           ))}
         </div>
         {/* 모달 */}
         <button
           onClick={() => navigate("/main/upload")}
           className="fixed bottom-[90px] right-6 bg-[#6BB1E4] border border-[#59A1D7] text-white text-[14px] font-semibold rounded-full w-[84px] h-[38px] z-40"
-        >ㅑ
+        >
           + 글쓰기
         </button>
         {/* 
