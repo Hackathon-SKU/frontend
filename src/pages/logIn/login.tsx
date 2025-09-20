@@ -20,7 +20,7 @@ const Login: React.FC = () => {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}auth/login`,
+        `${import.meta.env.VITE_BASE_URL}/auth/login`,
         { email, password: pw },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -145,8 +145,8 @@ const Login: React.FC = () => {
           }}
         >
           <img
-            src="/signIn/logo.png"
-            alt="logo"
+            src="/welcome/mainLogo.svg"
+            alt=""
             style={{ width: 40, height: 40, objectFit: "contain" }}
           />
         </div>

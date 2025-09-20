@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const RegisterPW: React.FC = () => {
   const [pw, setPw] = useState("");
@@ -61,7 +62,18 @@ const RegisterPW: React.FC = () => {
       }}
     >
       <div style={{ height: 60 }} />
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+
+      {/* 로고 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <div
           style={{
             width: 56,
@@ -75,21 +87,27 @@ const RegisterPW: React.FC = () => {
           }}
         >
           <img
-            src="/signIn/logo.png"
+            src="/welcome/mainLogo.svg"
             alt="logo"
             style={{ width: 40, height: 40, objectFit: "contain" }}
           />
         </div>
-      </div>
+      </motion.div>
 
-      <div style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}>
+      {/* Progress Bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+        style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}
+      >
         <div
           style={{
             width: "100%",
             height: 10,
             background: "#F2F2F2",
             borderRadius: 10,
-            marginBottom: "3px"
+            marginBottom: "3px",
           }}
         />
         <div
@@ -110,16 +128,19 @@ const RegisterPW: React.FC = () => {
             color: "#8A8A8A",
             fontSize: "16px",
             left: "301px",
-            fontStyle: "normal",
             fontWeight: 600,
             lineHeight: "30px",
           }}
         >
           3/5
         </span>
-      </div>
+      </motion.div>
 
-      <div
+      {/* 타이틀 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
         style={{
           marginTop: 64,
           width: "100%",
@@ -127,22 +148,20 @@ const RegisterPW: React.FC = () => {
           textAlign: "left",
         }}
       >
-        <span
-          style={{
-            color: "#000",
-            fontSize: "24px",
-            fontStyle: "normal",
-            fontWeight: 600,
-            lineHeight: "28px",
-          }}
-        >
+        <span style={{ color: "#000", fontSize: "24px", fontWeight: 600 }}>
           비밀번호를 입력해주세요
         </span>
-      </div>
+      </motion.div>
 
-      <div style={{ width: 353, marginTop: 48 }}>
+      {/* 입력 필드 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
+        style={{ width: 353, marginTop: 48 }}
+      >
+        {/* 비밀번호 입력 */}
         <div style={{ marginBottom: 32 }}>
-          
           <div style={{ position: "relative", width: "100%" }}>
             <input
               type={showPw ? "text" : "password"}
@@ -177,23 +196,23 @@ const RegisterPW: React.FC = () => {
               onClick={() => setShowPw((v) => !v)}
             />
           </div>
-          <span style={{
-            color: "#D0D0D0",
-            textAlign: "left",
-            fontSize: "10px",
-            fontStyle: "normal",
-            fontWeight: 500,
-            lineHeight: "20px",
-            letterSpacing: "-0.25px",
-            padding: "4px 0 4px 8px",
-            marginTop: 2,
-            display: "block"
-          }}>
+          <span
+            style={{
+              color: "#D0D0D0",
+              textAlign: "left",
+              fontSize: "10px",
+              fontWeight: 500,
+              lineHeight: "20px",
+              padding: "4px 0 4px 8px",
+              display: "block",
+            }}
+          >
             영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
           </span>
         </div>
+
+        {/* 비밀번호 재확인 */}
         <div>
-         
           <div style={{ position: "relative", width: "100%" }}>
             <input
               type={showPw2 ? "text" : "password"}
@@ -228,41 +247,24 @@ const RegisterPW: React.FC = () => {
               onClick={() => setShowPw2((v) => !v)}
             />
           </div>
-            {pw2Touched && pw2.length > 0 && pw !== pw2 ? (
-            <span style={{
-              color: "#FF4D4F",
-              textAlign: "left",
-              fontSize: "10px",
-              fontStyle: "normal",
-              fontWeight: 500,
-              lineHeight: "20px",
-              letterSpacing: "-0.25px",
-              padding: "4px 0 4px 8px",
-              marginTop: 2,
-              display: "block"
-            }}>
+          {pw2Touched && pw2.length > 0 && pw !== pw2 ? (
+            <span
+              style={{ color: "#FF4D4F", fontSize: "10px", paddingLeft: 8 }}
+            >
               비밀번호가 일치하지 않습니다.
             </span>
-            ) : pwTouched && pw.length > 0 && !pwValid ? (
-            <span style={{
-              color: "#FF4D4F",
-              textAlign: "left",
-              fontSize: "10px",
-              fontStyle: "normal",
-              fontWeight: 500,
-              lineHeight: "20px",
-              letterSpacing: "-0.25px",
-              padding: "4px 0 4px 8px",
-              marginTop: 2,
-              display: "block"
-            }}>
+          ) : pwTouched && pw.length > 0 && !pwValid ? (
+            <span
+              style={{ color: "#FF4D4F", fontSize: "10px", paddingLeft: 8 }}
+            >
               영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
             </span>
-            ) : null}
+          ) : null}
         </div>
-      </div>
+      </motion.div>
 
-      <button
+      {/* 다음 버튼 */}
+      <motion.button
         style={{
           position: "absolute",
           bottom: 32,
@@ -271,7 +273,7 @@ const RegisterPW: React.FC = () => {
           height: "50px",
           borderRadius: "100px",
           border: "1px solid #59A1D7",
-          background: "#6BB1E4",
+          background: isValid ? "#6BB1E4" : "#A8D4EF",
           color: "#fff",
           fontSize: "20px",
           fontWeight: 600,
@@ -280,10 +282,16 @@ const RegisterPW: React.FC = () => {
         }}
         disabled={!isValid}
         onClick={handleNext}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
+        whileHover={isValid ? { scale: 1.02 } : {}}
+        whileTap={isValid ? { scale: 0.98 } : {}}
       >
         다음
-      </button>
+      </motion.button>
     </div>
   );
 };
+
 export default RegisterPW;

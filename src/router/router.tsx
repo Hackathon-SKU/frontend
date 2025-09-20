@@ -18,13 +18,15 @@ import Login from "../pages/logIn/login";
 import RegisterLicense from "../pages/signIn/registerLicense";
 import RegisterPhoto from "../pages/signIn/registerPhoto";
 import DisabledMain from "../pages/Main/disabledMain";
+import Splash from "../components/Splash";
 
 const publicLayout: RouteObject[] = [
   {
     path: "/",
     element: <BaseLayout protectedRoutes={false} />,
     children: [
-      { index: true, element: <Welcome /> },
+      { index: true, element: <Splash /> },
+      { path: "/welcome", element: <Welcome /> },
       { path: "login", element: <Login /> },
       { path: "register-type", element: <RegisterType /> },
       { path: "register-email", element: <RegisterEmail /> },

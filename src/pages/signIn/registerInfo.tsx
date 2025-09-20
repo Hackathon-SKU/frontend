@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const fadeInStyle: React.CSSProperties = {
   opacity: 1,
@@ -101,12 +102,12 @@ const RegisterInfo: React.FC = () => {
       }}
     >
       <div style={{ height: 60 }} />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+
+      {/* 로고 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <div
           style={{
@@ -121,14 +122,18 @@ const RegisterInfo: React.FC = () => {
           }}
         >
           <img
-            src="/signIn/logo.png"
+            src="/welcome/mainLogo.svg"
             alt="logo"
             style={{ width: 40, height: 40, objectFit: "contain" }}
           />
         </div>
-      </div>
+      </motion.div>
 
-      <div
+      {/* Progress Bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
         style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}
       >
         <div
@@ -158,17 +163,19 @@ const RegisterInfo: React.FC = () => {
             color: "#8A8A8A",
             fontSize: "16px",
             left: "301px",
-            fontStyle: "normal",
             fontWeight: 600,
             lineHeight: "30px",
           }}
         >
           4/5
         </span>
-      </div>
+      </motion.div>
 
       {/* 이름 */}
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
         style={{
           marginTop: 64,
           width: "100%",
@@ -176,19 +183,17 @@ const RegisterInfo: React.FC = () => {
           textAlign: "left",
         }}
       >
-        <span
-          style={{
-            color: "#000",
-            fontSize: "24px",
-            fontStyle: "normal",
-            fontWeight: 600,
-            lineHeight: "28px",
-          }}
-        >
+        <span style={{ color: "#000", fontSize: "24px", fontWeight: 600 }}>
           이름이 무엇인가요?
         </span>
-      </div>
-      <div style={{ width: 353, marginTop: 46 }}>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
+        style={{ width: 353, marginTop: 46 }}
+      >
         <input
           type="text"
           value={name}
@@ -205,8 +210,9 @@ const RegisterInfo: React.FC = () => {
             marginTop: 4,
           }}
         />
-      </div>
+      </motion.div>
 
+      {/* 생년월일 */}
       <div
         style={{
           ...(!showBirth ? fadeOutStyle : fadeInStyle),
@@ -216,15 +222,7 @@ const RegisterInfo: React.FC = () => {
           textAlign: "left",
         }}
       >
-        <span
-          style={{
-            color: "#000",
-            fontSize: "24px",
-            fontStyle: "normal",
-            fontWeight: 600,
-            lineHeight: "28px",
-          }}
-        >
+        <span style={{ color: "#000", fontSize: "24px", fontWeight: 600 }}>
           생년월일을 입력해주세요{" "}
           <span style={{ fontSize: 13, fontWeight: 600, color: "#8A8A8A" }}>
             (8자리)
@@ -259,6 +257,7 @@ const RegisterInfo: React.FC = () => {
         />
       </div>
 
+      {/* 성별 */}
       <div
         style={{
           ...(!showGender ? fadeOutStyle : fadeInStyle),
@@ -268,20 +267,12 @@ const RegisterInfo: React.FC = () => {
           textAlign: "left",
         }}
       >
-        <span
-          style={{
-            color: "#000",
-            fontSize: "24px",
-            fontStyle: "normal",
-            fontWeight: 600,
-            lineHeight: "28px",
-          }}
-        >
+        <span style={{ color: "#000", fontSize: "24px", fontWeight: 600 }}>
           성별
         </span>
       </div>
       <div
-        style={{ 
+        style={{
           ...(!showGender ? fadeOutStyle : fadeInStyle),
           display: "flex",
           flexDirection: "row",
@@ -332,7 +323,8 @@ const RegisterInfo: React.FC = () => {
         </button>
       </div>
 
-      <button
+      {/* 다음 버튼 */}
+      <motion.button
         style={{
           position: "absolute",
           bottom: 32,
@@ -341,7 +333,7 @@ const RegisterInfo: React.FC = () => {
           height: "50px",
           borderRadius: "100px",
           border: "1px solid #59A1D7",
-          background: "#6BB1E4",
+          background: isValid ? "#6BB1E4" : "#A8D4EF",
           color: "#fff",
           fontSize: "20px",
           fontWeight: 600,
@@ -350,9 +342,14 @@ const RegisterInfo: React.FC = () => {
         }}
         disabled={!isValid}
         onClick={handleNext}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
+        whileHover={isValid ? { scale: 1.02 } : {}}
+        whileTap={isValid ? { scale: 0.98 } : {}}
       >
         다음
-      </button>
+      </motion.button>
     </div>
   );
 };
