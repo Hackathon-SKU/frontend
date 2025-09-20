@@ -14,6 +14,7 @@ import DisabledRegist from "../pages/signIn/disabledRegist";
 import RegisterEnd from "../pages/signIn/registerEnd";
 import ProfilePage from "../pages/Main/Profile/Profile";
 import UploadPost from "../pages/uploadPost/upload";
+import Login from "../pages/logIn/login";
 
 const publicLayout: RouteObject[] = [
   {
@@ -21,6 +22,7 @@ const publicLayout: RouteObject[] = [
     element: <BaseLayout protectedRoutes={false} />,
     children: [
       { index: true, element: <Welcome /> },
+      { path: "login", element: <Login /> },
       { path: "register-type", element: <RegisterType /> },
       { path: "register-email", element: <RegisterEmail /> },
       { path: "register-password", element: <RegisterPW /> },
