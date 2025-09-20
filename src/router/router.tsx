@@ -15,6 +15,8 @@ import RegisterEnd from "../pages/signIn/registerEnd";
 import ProfilePage from "../pages/Main/Profile/Profile";
 import UploadPost from "../pages/uploadPost/upload";
 import Login from "../pages/logIn/login";
+import RegisterLicense from "../pages/signIn/registerLicense";
+import RegisterPhoto from "../pages/signIn/registerPhoto";
 
 const publicLayout: RouteObject[] = [
   {
@@ -28,7 +30,9 @@ const publicLayout: RouteObject[] = [
       { path: "register-password", element: <RegisterPW /> },
       { path: "register-info", element: <RegisterInfo /> },
       { path: "disabledRegist", element: <DisabledRegist /> },
+      { path: "registerLicense", element: <RegisterLicense /> },
       { path: "register-end", element: <RegisterEnd /> },
+      { path: "register-photo", element: <RegisterPhoto /> },
     ],
   },
 ];

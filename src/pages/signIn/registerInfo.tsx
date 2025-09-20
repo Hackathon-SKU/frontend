@@ -71,7 +71,7 @@ const RegisterInfo: React.FC = () => {
     if (role === "DISABLED") {
       navigate("/disabledRegist");
     } else if (role === "CAREGIVER") {
-      navigate("/caregiverRegist");
+      navigate("/registerLicense");
     } else {
       navigate("/");
     }

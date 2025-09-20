@@ -18,6 +18,7 @@ const Login: React.FC = () => {
     if (loading) return;
     setLoading(true);
     try {
+      // 인증 헤더 없이 요청
       const res = await axios.post(
         `${import.meta.env.VITE_BASE_URL}auth/login`,
         { email, password: pw },
@@ -30,6 +31,32 @@ const Login: React.FC = () => {
       console.log("result:", result);
       console.log("user:", user);
 
+      // userId가 없으면 result.id로도 시도
+      let userId = user?.userId || result?.id;
+      if (userId) {
+        sessionStorage.setItem("userId", String(userId));
+        setUserId(userId);
+        console.log("userId 저장(sessionStorage):", userId);
+      } else {
+        // 디버깅: user, result 전체 출력
+        console.log("user 객체에 userId 없음, result.id도 없음:", user, result);
+      }
+
+      if (user) {
+        if (user.name) sessionStorage.setItem("userName", user.name);
+        if (user.gender) sessionStorage.setItem("userGender", user.gender);
+        if (user.age) sessionStorage.setItem("userAge", String(user.age));
+        if (user.region) sessionStorage.setItem("userRegion", user.region);
+        if (user.grade) sessionStorage.setItem("userGrade", user.grade);
+        if (user.classification)
+          sessionStorage.setItem(
+            "userClassification",
+            typeof user.classification === "string"
+              ? user.classification
+              : JSON.stringify(user.classification)
+          );
+      }
+
       let accessToken = null;
       let refreshToken = null;
 
@@ -40,12 +67,13 @@ const Login: React.FC = () => {
           sessionStorage.setItem("accessToken", accessToken);
           console.log("accessToken 저장(sessionStorage):", accessToken);
         }
-      }
-
-      if (user?.userId) {
-        sessionStorage.setItem("userId", String(user.userId));
-        setUserId(user.userId);
-        console.log("userId 저장(sessionStorage):", user.userId);
+      } else {
+        console.log("응답 헤더 전체:", res.headers);
+        alert(
+          "accessToken이 응답 헤더에 없습니다.\n" +
+          "백엔드에서 'Access-Control-Expose-Headers: Authorization'을 반드시 추가해야 합니다.\n" +
+          "스웨거는 CORS를 안 타서 되고, 프론트는 CORS 때문에 안 될 수 있습니다."
+        );
       }
 
       console.log("sessionStorage accessToken:", sessionStorage.getItem("accessToken"));
