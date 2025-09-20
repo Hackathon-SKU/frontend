@@ -1,5 +1,20 @@
 import type { CommonResponse } from "./common";
 
+// mockdata type
+export interface DisabledItems {
+  id: number;
+  title: string;
+  name: string;
+  gender: "남성" | "여성";
+  age: number;
+  region: string;
+  disability: {
+    grade: number;
+    types: string[];
+  };
+  profileImgUrl: string;
+}
+
 // Request DTO
 export interface WeeklyRule {
   days: number[]; // 월,수,금

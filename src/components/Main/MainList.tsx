@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import type { MainMockItem } from "../../types/workers";
+import type { DisabledItems } from "../../types/disabled";
 
 interface Props {
-  item: MainMockItem;
+  item: DisabledItems;
 }
 
 const MainList = ({ item }: Props) => {
   const navigate = useNavigate();
 
   const clickProfileId = () => {
-    navigate(`/profile/${item.id}`);
+    navigate(`/main/profile/${item.id}`);
   };
 
   return (
@@ -19,33 +19,25 @@ const MainList = ({ item }: Props) => {
     >
       {/* 프로필 이미지 */}
       <img
-        src={item.image}
+        src={item.profileImgUrl}
         alt={item.name}
-        className="w-[103px] h-[103px] rounded-sm mr-4 object-cover"
+        className="w-[77px] h-[77px] rounded-sm mr-4 object-cover"
       />
 
       {/* 내용 */}
-      <div className="flex-1 text-[11px]">
-        <h3 className="font-semibold text-start text-[15px]">“{item.title}”</h3>
-        <div className="flex gap-[5px] items-center py-2">
-          <img src="/main/item/user.svg" alt="user" className="w-[8px]" />
-          <p className=" text-[#494949]">
-            {item.name} · {item.info}
+      <div className="flex-1 text-[11px] mt-2">
+        <h3 className="font-semibold text-start text-[15px]">{item.title}</h3>
+        <div className="flex items-center py-2 text-[13px]">
+          <p className=" text-[#8A8A8A]">
+            {item.name} | {item.gender} | {item.age}세 | {item.region}
           </p>
         </div>
         <div>
-          <div className="flex gap-[5px] items-center">
-            <img src="/main/item/check.svg" alt="protect" className="w-[8px]" />
-            <p className="text-[#494949]">자격증 · {item.license}</p>
-          </div>
-          <div className="flex gap-[5px] items-center mb-2">
-            <img
-              src="/main/item/protect.svg"
-              alt="protect"
-              className="w-[8px]"
-            />
-            <p className="text-[#494949] text-center">
-              돌봄 분야 · {item.field}
+          <div className="flex gap-[5px] items-center mb-2 text-[11px]">
+            <img src="/main/item/check.svg" alt="protect" className="w-[9px]" />
+            <p className="text-center text-[11px]">
+              장애 · {item.disability.grade}급 /{" "}
+              {item.disability.types.join(" / ")}
             </p>
           </div>
         </div>

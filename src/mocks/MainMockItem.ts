@@ -1,4 +1,5 @@
-import type { MainMockItem } from "../types/workers";
+import type { MainMockItem } from "../types/caregivers";
+import type { DisabledItems } from "../types/disabled";
 
 export const mainMockItems: MainMockItem[] = [
   {
@@ -63,5 +64,86 @@ export const mainMockItems: MainMockItem[] = [
     license: "사회복지사 2급",
     field: "지적, 발달 장애",
     image: "/main/sampleImg/sample3.svg",
+  },
+];
+
+export const mainDisabledMocks: DisabledItems[] = [
+  {
+    id: 1,
+    title: "발달장애 초등생 돌봄 복지사님 모십니다",
+    name: "이*희",
+    gender: "여성",
+    age: 13,
+    region: "이매2동",
+    disability: {
+      grade: 4,
+      types: ["발달장애", "자폐스펙트럼"],
+    },
+    profileImgUrl: "/main/sampleImg/sample6.svg",
+  },
+  {
+    id: 2,
+    title: "주말동안 거동 불편한 아버지 봐주실 분",
+    name: "박*근",
+    gender: "남성",
+    age: 63,
+    region: "백현2동",
+    disability: {
+      grade: 2,
+      types: ["절단장애"],
+    },
+    profileImgUrl: "/main/sampleImg/sampleNone.svg",
+  },
+  {
+    id: 3,
+    title: "경계선지능장애 남아 복지사분 찾아요",
+    name: "민*로",
+    gender: "남성",
+    age: 10,
+    region: "도촌1동",
+    disability: {
+      grade: 6,
+      types: ["발달장애", "경계선지능장애"],
+    },
+    profileImgUrl: "/main/sampleImg/sample1.svg",
+  },
+  {
+    id: 4,
+    title: "시각장애인 산책보조 구합니다",
+    name: "민*로",
+    gender: "남성",
+    age: 10,
+    region: "도촌1동",
+    disability: {
+      grade: 6,
+      types: ["발달장애", "경계선지능장애"],
+    },
+    profileImgUrl: "/main/sampleImg/sample2.svg",
+  },
+  {
+    id: 5,
+    title: "시각장애인 산책보조 구합니다",
+    name: "민*로",
+    gender: "남성",
+    age: 10,
+    region: "도촌1동",
+    disability: {
+      grade: 6,
+      types: ["발달장애", "경계선지능장애"],
+    },
+    profileImgUrl: "/main/sampleImg/sample2.svg",
+  },
+  {
+    id: 6,
+    title: "시각장애인 산책보조 구합니다",
+    name: "민*로",
+    gender: "남성",
+    age: 10,
+    region: "도촌1동",
+    disability: {
+      grade: 6,
+      types: ["발달장애", "경계선지능장애"],
+    },
+    profileImgUrl: "/main/sampleImg/sample2.svg",
   },
 ];

@@ -8,26 +8,26 @@ const ProfileHeader = () => {
   if (!item) return <div className="p-4">존재하지 않는 프로필입니다!</div>;
 
   return (
-    <div className="flex items-center justify-between p-4 border-b">
+    <div className="flex items-center justify-between p-4 text-[11px] bg-white">
       <div className="flex items-center gap-4">
         <img
-          src="/profile.png"
+          src={item.image}
           alt="프로필"
-          className="w-16 h-16 rounded-full object-cover"
+          className="w-[103px] h-[103px] rounded-sm object-cover"
         />
         {}
         <div>
-          <h2 className="font-semibold text-lg">{item.title}</h2>
-          <p className="text-sm text-gray-500">
+          <h2 className="font-semibold text-[15px]">{item.title}</h2>
+          <p className="text-[#8A8A8A]">
             {item.name} · {item.info}
           </p>
           {/* 주소 API 들어오면 넣기 */}
-          <p className="text-sm text-gray-400">야탑3동 / 10km 이동 가능</p>
+          <div className="flex items-center mt-[30px] gap-[8px]">
+            <img src="/main/detail/location.svg" alt="" />
+            <p className="text-[11px] ">야탑3동 / 10km 이동 가능</p>
+          </div>
         </div>
       </div>
-      <button>
-        <div className="w-6 h-6" />
-      </button>
     </div>
   );
 };

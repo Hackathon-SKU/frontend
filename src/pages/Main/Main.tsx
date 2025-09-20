@@ -3,7 +3,7 @@ import { useState } from "react";
 import MainList from "../../components/Main/MainList";
 import MainNavbar from "../../components/Main/MainNavbar";
 import WriteModal from "../../components/Main/WriteModal";
-import { mainMockItems } from "../../mocks/MainMockItem";
+import { mainDisabledMocks } from "../../mocks/MainMockItem";
 
 const Main = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -39,16 +39,16 @@ const Main = () => {
           </div>
 
           {/* 버튼 */}
-          <div className="absolute bottom-2 right-1/10">
-            <button className="px-[31px] py-[8px] bg-[#6BB1E4] border border-[#59A1D7] text-white text-sm font-semibold rounded-full shadow">
-              내 근처 복지사 찾기
+          <div className="absolute bottom-2 right-1/14">
+            <button className="px-[25px] py-[6px] bg-[#6BB1E4] border border-[#59A1D7] text-white text-[10px] font-semibold rounded-full shadow">
+              내 근처 도움이 필요한 사람 찾기
             </button>
           </div>
         </div>
 
         {/* 리스트 영역 */}
-        <div className="py-2 space-y-[2px] pb-[73px]">
-          {mainMockItems.map((item) => (
+        <div className="py-2 space-y-[8px] pb-[73px]">
+          {mainDisabledMocks.map((item) => (
             <MainList item={item} />
           ))}
         </div>
