@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const RegisterType: React.FC = () => {
-  const [selected, setSelected] = useState<"user" | "worker" | null>("user");
+  const [selected, setSelected] = useState<"user" | "worker" | null>(null);
   const navigate = useNavigate();
 
   const getRole = (type: "user" | "worker") =>
@@ -74,13 +74,13 @@ const RegisterType: React.FC = () => {
             height: 10,
             background: "#F2F2F2",
             borderRadius: 10,
-            marginBottom: "3px"
+            marginBottom: "3px",
           }}
         />
         <div
           style={{
             width: "20%",
-            height: 10, 
+            height: 10,
             background: "#6BB1E4",
             borderRadius: 10,
             position: "absolute",
@@ -97,7 +97,7 @@ const RegisterType: React.FC = () => {
             left: "301px",
             fontStyle: "normal",
             fontWeight: 600,
-            lineHeight: "30px" 
+            lineHeight: "30px",
           }}
         >
           1/5
@@ -118,7 +118,7 @@ const RegisterType: React.FC = () => {
             fontSize: "24px",
             fontStyle: "normal",
             fontWeight: 600,
-            lineHeight: "28px"
+            lineHeight: "28px",
           }}
         >
           가입 유형을 선택해주세요
@@ -129,87 +129,80 @@ const RegisterType: React.FC = () => {
         style={{
           display: "flex",
           flexDirection: "row",
-          width: 340,
-          height: 177,
-          marginTop:"50px",
-          background: "none",
-          borderRadius: "8px",
+          width: 354,
+          height: 56,
+          marginTop: 48,
+          background: "#F5F5F5",
+          borderRadius: 100,
+          border: "1px solid #59A1D7",
           overflow: "hidden",
-          boxShadow: "none",
-          border: "1px solid #59A1D7"
         }}
       >
-        <div
+        <button
+          type="button"
           onClick={() => setSelected("user")}
           style={{
             flex: 1,
-            background: selected === "user" ? "#6BB1E4" : "#FFFFFF",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            // justifyContent: "center",
+            background: selected === "user" ? "#6BB1E4" : "#FFF",
+            color: selected === "user" ? "#fff" : "#6BB1E4",
+            border: "none",
+            fontSize: 15,
+            fontWeight: 500,
+            borderRadius: "100px 0 0 100px",
+            height: "100%",
             cursor: "pointer",
             transition: "background 0.2s",
-            borderRight: "1px solid #6BB1E4",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "15px",
           }}
         >
           <img
             src="/signIn/wheelchair.png"
             alt="장애인/보호자"
             style={{
-              width: "98px",
-              height: "110px",
-              marginTop: "17px",
-              marginBottom: "11px",
+              width: 25,
+              height: 30,
               filter: selected === "user" ? "brightness(0) invert(1)" : "none",
             }}
           />
-          <span
-            style={{
-              fontSize: "20px",
-              fontWeight: "600px",
-              color: selected === "user" ? "#fff" : "#6BB1E4",
-              letterSpacing: 1,
-            }}
-          >
-            장애인 · 보호자
-          </span>
-        </div>
-        <div
+          <span>장애인 · 보호자</span>
+        </button>
+        <button
+          type="button"
           onClick={() => setSelected("worker")}
           style={{
             flex: 1,
-            background: selected === "worker" ? "#6BB1E4" : "#FAFAFA",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            background: selected === "worker" ? "#6BB1E4" : "#FFF",
+            color: selected === "worker" ? "#fff" : "#6BB1E4",
+            border: "none",
+            fontSize: 15,
+            fontWeight: 500,
+            borderRadius: "0 100px 100px 0",
+            height: "100%",
             cursor: "pointer",
             transition: "background 0.2s",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "74px",
           }}
         >
           <img
             src="/signIn/worker.png"
             alt="복지사"
             style={{
-              width: "95px",
-              height: "105px",
+              width: 24,
+              height: 24,
               filter:
                 selected === "worker" ? "brightness(0) invert(1)" : "none",
-              marginTop: "17px",
-              marginBottom: "16px",
             }}
           />
-          <span
-            style={{
-              fontSize: "20px",
-              fontWeight: 600,
-              color: selected === "worker" ? "#fff" : "#6BB1E4",
-              letterSpacing: 1,
-            }}
-          >
-            복지사
-          </span>
-        </div>
+          복지사
+        </button>
       </div>
 
       <button
@@ -225,7 +218,7 @@ const RegisterType: React.FC = () => {
           color: "#fff",
           fontSize: "20px",
           fontWeight: 600,
-          cursor: "pointer",
+          cursor: selected ? "pointer" : "not-allowed",
           letterSpacing: 2,
         }}
         disabled={!selected}

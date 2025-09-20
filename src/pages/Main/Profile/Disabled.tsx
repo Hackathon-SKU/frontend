@@ -38,8 +38,8 @@ const DisabledPage = () => {
 
       <div className="bg-[#EEEEEE] flex flex-col space-y-1">
         <DisabledHeader profile={profile} />
-        <DisabledInfo profile={profile} />
-        <DisabledNote profile={profile} />
+        <DisabledInfo />
+        <DisabledNote />
         {/* <ProfileHeader profile={data!.result as CaregiverProfile} />
         <ProfileInfo profile={data!.result as CaregiverProfile} />
         <ProfileReviews profile={data!.result as CaregiverProfile} /> */}

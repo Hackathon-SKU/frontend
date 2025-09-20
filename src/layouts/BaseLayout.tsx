@@ -8,7 +8,9 @@ interface BaseLayoutProps {
 const BaseLayout = ({ protectedRoutes }: BaseLayoutProps) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const isMainPage = location.pathname.startsWith("/main");
+  const isMainPage =
+    location.pathname.startsWith("/main") ||
+    location.pathname.startsWith("/disabledMain");
   const noFooterPaths = ["/main/disabled", "/main/chat"];
   const shouldShowFooter =
     isMainPage &&

@@ -1,16 +1,10 @@
-import type { DisabledItems } from "../../../types/disabled";
-
 const Badge = ({ text }: { text: string }) => (
   <span className="px-2 py-1 border border-[#59A1D7] rounded-full text-[11px]">
     {text}
   </span>
 );
 
-interface Props {
-  profile: DisabledItems;
-}
-
-const DisabledInfo = ({ profile }: Props) => {
+const DisabledInfo = () => {
   return (
     <div className="p-4 space-y-3 bg-white">
       <div className="flex items-center mb-4 gap-15">

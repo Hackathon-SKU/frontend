@@ -1,10 +1,4 @@
-import type { DisabledItems } from "../../../types/disabled";
-
-interface Props {
-  profile: DisabledItems;
-}
-
-const DisabledNote = ({ profile }: Props) => {
+const DisabledNote = () => {
   return (
     <div className="p-4 bg-white">
       <h3 className="font-[400] mb-2">특이사항</h3>
