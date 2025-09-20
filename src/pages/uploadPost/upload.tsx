@@ -149,7 +149,7 @@ const UploadPost: React.FC = () => {
       );
       console.log("POST /postings response:", res.data);
       alert("공고가 등록되었습니다.");
-      navigate("/main");
+      navigate("/disabledMain");
     } catch (e) {
       if (axios.isAxiosError(e)) {
         console.error("API Error:", e.response?.data || e.message, e);

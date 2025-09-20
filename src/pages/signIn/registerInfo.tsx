@@ -281,7 +281,7 @@ const RegisterInfo: React.FC = () => {
         </span>
       </div>
       <div
-        style={{
+        style={{ 
           ...(!showGender ? fadeOutStyle : fadeInStyle),
           display: "flex",
           flexDirection: "row",

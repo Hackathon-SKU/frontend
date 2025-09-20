@@ -17,6 +17,7 @@ import UploadPost from "../pages/uploadPost/upload";
 import Login from "../pages/logIn/login";
 import RegisterLicense from "../pages/signIn/registerLicense";
 import RegisterPhoto from "../pages/signIn/registerPhoto";
+import DisabledMain from "../pages/Main/disabledMain";
 
 const publicLayout: RouteObject[] = [
   {
@@ -68,6 +69,13 @@ const privateLayout: RouteObject[] = [
         path: "upload",
         element: <UploadPost />,
       },
+    ],
+  },
+  {
+    path: "/disabledMain",
+    element: <BaseLayout protectedRoutes={true} />,
+    children: [
+      { index: true, element: <DisabledMain /> },
     ],
   },
 ];
