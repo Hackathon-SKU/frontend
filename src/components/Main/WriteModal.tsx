@@ -1,3 +1,5 @@
+// import { useCreatePost } from '../../hooks/mutations/useCreatePost';
+
 interface WriteModalProps {
   isOpen: boolean;
   onClose: () => void;

@@ -25,7 +25,9 @@ const Footer = () => {
                 <img
                   src={isActive ? item.activeIcon : item.icon}
                   alt={item.name}
-                  className="w-[24px] h-[26px]"
+                  className={`w-[24px] h-[26px] ${
+                    item.name === "홈" && "w-[26px] h-[27px]"
+                  }`}
                 />
                 <span className="text-xs mt-1">{item.name}</span>
               </Link>

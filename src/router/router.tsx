@@ -6,7 +6,7 @@ import Report from "../pages/Main/Report";
 import Location from "../pages/Main/Location";
 import Chat from "../pages/Main/Chat";
 import Info from "../pages/Main/Info";
-import Details from "../components/Main/Details";
+import ProfileHeader from "../components/Main/details/ProfileHeader";
 import RegisterType from "../pages/signIn/registerType";
 import RegisterEmail from "../pages/signIn/registerEmail";
 import RegisterPW from "../pages/signIn/registerPassword";
@@ -30,9 +30,10 @@ const publicLayout: RouteObject[] = [
         path: "main",
         children: [
           { index: true, element: <Main /> },
+          // { path: "detail", element: <Details /> }, // Details import 및 라우트 제거
           {
-            path: "detail",
-            element: <Details />,
+            path: "profile/:id",
+            element: <ProfileHeader />,
           },
           {
             path: "report",
