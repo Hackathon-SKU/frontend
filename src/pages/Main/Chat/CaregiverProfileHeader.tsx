@@ -1,11 +1,7 @@
 import { useParams } from "react-router-dom";
 import { mainMockItems } from "../../../mocks/MainMockItem";
 
-interface Props {
-  profile: number;
-}
-
-const ProfileHeader = ({ profile }: Props) => {
+const ProfileHeader = () => {
   const { id } = useParams<{ id: string }>();
 
   const item = mainMockItems.find((it) => it.id.toString() === id);

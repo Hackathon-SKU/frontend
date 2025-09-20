@@ -4,15 +4,15 @@ import Welcome from "../pages/Welcome";
 import Main from "../pages/Main/Main";
 import Report from "../pages/Main/Report";
 import Location from "../pages/Main/Location";
-import Chat from "../pages/Main/Chat";
+import Chat from "../pages/Main/Chat/Chat";
 import Info from "../pages/Main/Info";
-import ProfileHeader from "../components/Main/details/ProfileHeader";
 import RegisterType from "../pages/signIn/registerType";
 import RegisterEmail from "../pages/signIn/registerEmail";
 import RegisterPW from "../pages/signIn/registerPassword";
 import RegisterInfo from "../pages/signIn/registerInfo";
 import DisabledRegist from "../pages/signIn/disabledRegist";
 import RegisterEnd from "../pages/signIn/registerEnd";
+import ProfilePage from "../pages/Main/Profile/Profile";
 import UploadPost from "../pages/uploadPost/upload";
 import Login from "../pages/logIn/login";
 
@@ -36,7 +36,7 @@ const publicLayout: RouteObject[] = [
           // { path: "detail", element: <Details /> }, // Details import 및 라우트 제거
           {
             path: "profile/:id",
-            element: <ProfileHeader />,
+            element: <ProfilePage />,
           },
           {
             path: "report",

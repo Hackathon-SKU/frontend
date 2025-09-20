@@ -4,4 +4,5 @@ export const LOCAL_STORAGE_KEY = {
 
 export const QEURY_KEY = {
   post: "post",
+  caregiver: "caregiver",
 };

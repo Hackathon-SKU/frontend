@@ -10,10 +10,8 @@ const Footer = () => {
           {footerItem.map((item) => {
             const isActive =
               item.path === "/main"
-                ? location.pathname === "/main"
+                ? location.pathname === "/main" || "/main/profile/:id"
                 : location.pathname.startsWith(item.path);
-
-            console.log(isActive);
             return (
               <Link
                 key={item.name}

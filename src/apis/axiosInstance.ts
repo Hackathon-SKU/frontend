@@ -13,7 +13,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const token = getAccessToken();
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwianRpIjoiNWEwNzQwYjgtNmI1Yy00YTU1LTg2ZTEtY2IyYjUwMzI0OTFiIiwiaWF0IjoxNzU4MzczMzI5LCJleHAiOjE3NTg0NTk3Mjl9.46bbPlWgE0QOxZrf2Jt1a4js8gIKA0N5gyp_ZUocXn8 `;
     }
     return config;
   },
