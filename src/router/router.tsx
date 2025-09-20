@@ -39,6 +39,11 @@ const publicLayout: RouteObject[] = [
             element: <DisabledPage />,
           },
           {
+            path: "profile/:id",
+            element: <></>,
+          },
+
+          {
             path: "report",
             element: <Report />,
           },

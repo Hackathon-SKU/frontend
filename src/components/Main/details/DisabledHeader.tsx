@@ -1,18 +1,22 @@
-const DisabledHeader = () => {
+import type { DisabledItems } from "../../../types/disabled";
+
+interface Props {
+  profile: DisabledItems;
+}
+
+const DisabledHeader = ({ profile }: Props) => {
   return (
-    <div className="bg-white p-4">
-      <h2 className="font-semibold text-lg mb-2">
-        발달장애 초등생 돌봄 복지사님 모십니다
-      </h2>
+    <div className="p-4 bg-white">
+      <h2 className="mb-2 text-lg font-semibold">{profile.title}</h2>
 
       <div className="flex items-center text-[15px] justify-start">
         <div className="flex items-center gap-2">
           <img
-            src="/main/sampleImg/sample6.svg"
+            src={profile.profileImgUrl}
             alt="작성자"
-            className="w-10 h-10 rounded-full object-cover"
+            className="object-cover w-10 h-10 rounded-full"
           />
-          <span className="text-sm">한*연</span>
+          <span className="text-sm">{profile.name}</span>
         </div>
         <div className="flex pl-[10px] gap-4">
           <div className="flex gap-2">
@@ -28,7 +32,7 @@ const DisabledHeader = () => {
 
       <div className="flex items-center gap-2 mt-2 text-sm">
         <img src="/main/detail/location.svg" alt="" />
-        <span>야탑3동 | 340m</span>
+        <span>{profile.region} | 340m</span>
       </div>
     </div>
   );

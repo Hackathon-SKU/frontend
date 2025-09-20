@@ -3,12 +3,21 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import DisabledHeader from "../../../components/Main/details/DisabledHeader";
 import DisabledInfo from "../../../components/Main/details/DisabledInfo";
 import DisabledNote from "../../../components/Main/details/DisabledNotes";
+import type { DisabledItems } from "../../../types/disabled";
+import { mainDisabledMocks } from "../../../mocks/MainMockItem";
 // import type { CaregiverProfile } from "../../../types/caregivers";
 
 const DisabledPage = () => {
   const { id } = useParams<{ id: string }>();
-  // const { data, isLoading, error } = useGet(id!);
   const navigate = useNavigate();
+
+  const profile: DisabledItems | undefined = mainDisabledMocks.find(
+    (item) => item.id === Number(id)
+  );
+
+  if (!profile) {
+    return <p className="p-4 text-center">해당 프로필을 찾을 수 없습니다.</p>;
+  }
 
   return (
     <>
@@ -28,9 +37,9 @@ const DisabledPage = () => {
       </header>
 
       <div className="bg-[#EEEEEE] flex flex-col space-y-1">
-        <DisabledHeader />
-        <DisabledInfo />
-        <DisabledNote />
+        <DisabledHeader profile={profile} />
+        <DisabledInfo profile={profile} />
+        <DisabledNote profile={profile} />
         {/* <ProfileHeader profile={data!.result as CaregiverProfile} />
         <ProfileInfo profile={data!.result as CaregiverProfile} />
         <ProfileReviews profile={data!.result as CaregiverProfile} /> */}
