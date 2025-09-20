@@ -1,13 +1,12 @@
 // import MainHomeEmpty from "../../components/Main/MainHomeEmpty";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import MainHomeEmpty from "../../components/Main/MainHomeEmpty";
 import { useNavigate } from "react-router-dom";
 import MainList from "../../components/Main/MainList";
 import MainNavbar from "../../components/Main/MainNavbar";
-import WriteModal from "../../components/Main/WriteModal";
-import { mainMockItems } from "../../mocks/MainMockItem";
+import { mainDisabledMocks, mainMockItems } from "../../mocks/MainMockItem"; // mainMockItems import 추가
 
 const Main = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,12 +17,14 @@ const Main = () => {
     }
   }, [navigate]);
 
+  // 리스트가 없으면 MainHomeEmpty, 있으면 리스트와 UI 렌더
+  if (!mainDisabledMocks.length || !mainDisabledMocks.some((it) => it.id)) {
+    return <MainHomeEmpty />;
+  }
+
   return (
     <>
       <MainNavbar />
-      {/* 리스트 데이터 없을때 화면 */}
-      {/* <MainHomeEmpty /> */}
-
       <div className="relative bg-[#EEEEEE] flex flex-col">
         {/* 지도 영역 */}
         <div className="relative w-[393px] h-[120px]">
@@ -49,13 +50,12 @@ const Main = () => {
           </div>
 
           {/* 버튼 */}
-          <div className="absolute bottom-2 right-1/10">
-            <button className="px-[31px] py-[8px] bg-[#6BB1E4] border border-[#59A1D7] text-white text-sm font-semibold rounded-full shadow">
-              내 근처 복지사 찾기
+          <div className="absolute bottom-2 right-1/14">
+            <button className="px-[25px] py-[6px] bg-[#6BB1E4] border border-[#59A1D7] text-white text-[10px] font-semibold rounded-full shadow">
+              내 근처 도움이 필요한 사람 찾기
             </button>
           </div>
         </div>
-
         {/* 리스트 영역 */}
         <div className="py-2 space-y-[2px] pb-[73px]">
           {mainMockItems.map((item) => (
@@ -69,14 +69,6 @@ const Main = () => {
         >
           + 글쓰기
         </button>
-        {/* 
-        {isModalOpen && (
-          <WriteModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
-        )}
-        */}
       </div>
     </>
   );

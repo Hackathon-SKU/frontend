@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const Welcome = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center justify-between min-h-screen bg-white relative">
       {/* 상단 로고 */}
@@ -62,12 +65,20 @@ const Welcome = () => {
 
       {/* 버튼 */}
       <div className="w-full flex flex-col items-center gap-[5px] mb-12 px-8">
-        <button className="w-full py-3 bg-[#6BB1E4] text-white font-semibold rounded-full shadow">
+        <button
+          onClick={() => navigate("/login")}
+          className="w-full py-3 bg-[#6BB1E4] text-white font-semibold rounded-full shadow"
+        >
           프로필 만들기
         </button>
         <button
+<<<<<<< HEAD
           className="text-[#22222280] font-[600] text-[16px]"
           onClick={() => window.location.href = '/login'}
+=======
+          onClick={() => navigate("/login")}
+          className="text-[#22222280] font-[600] text-[16px]"
+>>>>>>> origin/develop
         >
           로그인
         </button>
