@@ -29,37 +29,6 @@ const publicLayout: RouteObject[] = [
       { path: "register-info", element: <RegisterInfo /> },
       { path: "disabledRegist", element: <DisabledRegist /> },
       { path: "register-end", element: <RegisterEnd /> },
-      {
-        path: "main",
-        children: [
-          { index: true, element: <Main /> },
-          // { path: "detail", element: <Details /> }, // Details import 및 라우트 제거
-          {
-            path: "profile/:id",
-            element: <ProfilePage />,
-          },
-          {
-            path: "report",
-            element: <Report />,
-          },
-          {
-            path: "location",
-            element: <Location />,
-          },
-          {
-            path: "chat",
-            element: <Chat />,
-          },
-          {
-            path: "info",
-            element: <Info />,
-          },
-          {
-            path: "upload",
-            element: <UploadPost />,
-          },
-        ],
-      },
     ],
   },
 ];
@@ -68,7 +37,34 @@ const privateLayout: RouteObject[] = [
   {
     path: "/main",
     element: <BaseLayout protectedRoutes={true} />,
-    children: [{ index: true, element: <Main /> }],
+    children: [
+      { index: true, element: <Main /> },
+      // { path: "detail", element: <Details /> }, // Details import 및 라우트 제거
+      {
+        path: "profile/:id",
+        element: <ProfilePage />,
+      },
+      {
+        path: "report",
+        element: <Report />,
+      },
+      {
+        path: "location",
+        element: <Location />,
+      },
+      {
+        path: "chat",
+        element: <Chat />,
+      },
+      {
+        path: "info",
+        element: <Info />,
+      },
+      {
+        path: "upload",
+        element: <UploadPost />,
+      },
+    ],
   },
 ];
 

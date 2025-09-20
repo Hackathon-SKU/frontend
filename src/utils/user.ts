@@ -1,10 +1,10 @@
-// userId를 localStorage에 저장/조회하는 함수
+// userId를 sessionStorage에 저장/조회하는 함수
 
 export function setUserId(userId: number) {
-  localStorage.setItem("userId", String(userId));
+  sessionStorage.setItem("userId", String(userId));
 }
 
 export function getUserId(): number | null {
-  const value = localStorage.getItem("userId");
+  const value = sessionStorage.getItem("userId");
   return value ? Number(value) : null;
 }

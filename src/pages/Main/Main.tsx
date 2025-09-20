@@ -1,11 +1,20 @@
 // import MainHomeEmpty from "../../components/Main/MainHomeEmpty";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MainList from "../../components/Main/MainList";
 import MainNavbar from "../../components/Main/MainNavbar";
-import { mainDisabledMocks } from "../../mocks/MainMockItem";
+import { mainDisabledMocks } from "../../mocks/MainMockItem"; // mainMockItems import 추가
 
 const Main = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const accessToken = sessionStorage.getItem("accessToken");
+    if (!accessToken) {
+      alert("로그인 후 이용 가능합니다.");
+      navigate("/login");
+    }
+  }, [navigate]);
 
   return (
     <>
