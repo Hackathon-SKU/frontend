@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { setUserId } from "../../utils/user"; // 추가
+import { setUserId } from "../../utils/user";
+import { motion } from "framer-motion";
 
 const DISABLED_TYPES = [
   "지체 장애",
@@ -56,9 +57,6 @@ function GradeDropdown({
           fontSize: 15,
           background: "transparent",
           padding: "4px 0 4px 8px",
-          appearance: "none",
-          WebkitAppearance: "none",
-          MozAppearance: "none",
           color: value ? "#222" : "#8A8A8A",
           display: "flex",
           alignItems: "center",
@@ -111,9 +109,6 @@ function GradeDropdown({
               fontSize: 15,
               background: value === g ? "#EAF4FB" : "#fff",
               cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
               transition: "background 0.2s",
             }}
           >
@@ -133,20 +128,10 @@ const DisabledRegist: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const originalHtmlMargin = document.documentElement.style.margin;
-    const originalHtmlPadding = document.documentElement.style.padding;
-    const originalBodyMargin = document.body.style.margin;
-    const originalBodyPadding = document.body.style.padding;
     document.documentElement.style.margin = "0";
     document.documentElement.style.padding = "0";
     document.body.style.margin = "0";
     document.body.style.padding = "0";
-    return () => {
-      document.documentElement.style.margin = originalHtmlMargin;
-      document.documentElement.style.padding = originalHtmlPadding;
-      document.body.style.margin = originalBodyMargin;
-      document.body.style.padding = originalBodyPadding;
-    };
   }, []);
 
   const handleTypeClick = (type: string) => {
@@ -168,7 +153,10 @@ const DisabledRegist: React.FC = () => {
     if (!isValid) return;
     localStorage.setItem("registerDisabledRegNum", regNum);
     localStorage.setItem("registerDisabledGrade", grade);
-    localStorage.setItem("registerDisabledTypes", JSON.stringify(selectedTypes));
+    localStorage.setItem(
+      "registerDisabledTypes",
+      JSON.stringify(selectedTypes)
+    );
 
     // 데이터 조립
     const email = localStorage.getItem("registerEmail") || "";
@@ -178,13 +166,12 @@ const DisabledRegist: React.FC = () => {
     const birth = localStorage.getItem("registerBirth") || "";
     const role = "DISABLED";
     const registrationNumber = regNum;
-    const classification = {
-      grade,
-      types: selectedTypes,
-    };
+    const classification = { grade, types: selectedTypes };
 
-    if (gender === "남" || gender === "MALE" || gender === "MEN") gender = "MEN";
-    else if (gender === "여" || gender === "FEMALE" || gender === "WOMEN") gender = "WOMEN";
+    if (gender === "남" || gender === "MALE" || gender === "MEN")
+      gender = "MEN";
+    else if (gender === "여" || gender === "FEMALE" || gender === "WOMEN")
+      gender = "WOMEN";
 
     const birthDate =
       birth.length === 8
@@ -193,7 +180,7 @@ const DisabledRegist: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}auth/join`,
+        `${import.meta.env.VITE_BASE_URL}/auth/join`,
         {
           name,
           email,
@@ -205,13 +192,9 @@ const DisabledRegist: React.FC = () => {
           classification,
         },
         {
-          headers: {
-            "accept": "*/*",
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
         }
       );
-      // userId 저장
       if (response.data?.result?.userId) {
         setUserId(response.data.result.userId);
       }
@@ -227,8 +210,6 @@ const DisabledRegist: React.FC = () => {
         width: 393,
         height: 852,
         background: "#FBFBFB",
-        fontFamily: "inherit",
-        boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -237,41 +218,18 @@ const DisabledRegist: React.FC = () => {
         left: 0,
         overflow: "hidden",
         zIndex: 10,
-        right: 0,
-        bottom: 0,
-        margin: "auto",
-        maxWidth: "100vw",
-        maxHeight: "100vh",
       }}
     >
       <div style={{ height: 60 }} />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            width: 56,
-            height: 56,
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: 4,
-            overflow: "hidden",
-          }}
-        >
-          <img
-            src="/signIn/logo.png"
-            alt="logo"
-            style={{ width: 40, height: 40, objectFit: "contain" }}
-          />
-        </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <img
+          src="/welcome/mainLogo.svg"
+          alt="logo"
+          style={{ width: 40, height: 40 }}
+        />
       </div>
 
+      {/* 진행 표시 + 강조 모션 */}
       <div
         style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}
       >
@@ -295,47 +253,38 @@ const DisabledRegist: React.FC = () => {
             left: "80%",
           }}
         />
-        <span
+        <motion.span
           style={{
             position: "absolute",
-            textAlign: "left",
-            color: "#8A8A8A",
-            fontSize: "16px",
             left: "230px",
-            fontStyle: "normal",
+            fontSize: "15px",
             fontWeight: 600,
-            lineHeight: "30px",
-            whiteSpace: "nowrap",
-            width: "auto",
-            maxWidth: "100%",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
+            color: "#8A8A8A",
           }}
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 1, repeat: Infinity, repeatDelay: 1 }}
         >
           거의 다 왔어요!
-        </span>
+        </motion.span>
       </div>
 
-      <div
+      {/* 입력 폼들 */}
+      <motion.div
         style={{
           marginTop: 64,
           width: "100%",
-          marginLeft: "50px",
+          marginLeft: 50,
           textAlign: "left",
         }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <span
-          style={{
-            color: "#000",
-            fontSize: "24px",
-            fontStyle: "normal",
-            fontWeight: 600,
-            lineHeight: "28px",
-          }}
-        >
+        <span style={{ fontSize: 24, fontWeight: 600 }}>
           장애등록번호를 입력해주세요
         </span>
-      </div>
+      </motion.div>
+
       <div style={{ width: 353, marginTop: 53 }}>
         <input
           type="text"
@@ -353,61 +302,29 @@ const DisabledRegist: React.FC = () => {
             background: "transparent",
             padding: "4px 0 4px 8px",
             width: "100%",
-            color: "#222",
             marginBottom: 8,
           }}
         />
-        <span
-          style={{
-            color: "#FF4D4F",
-            textAlign: "left",
-            fontSize: "10px",
-            fontStyle: "normal",
-            fontWeight: 500,
-            padding: "4px 0 4px 8px",
-            marginTop: "-6px",
-            display: "block",
-            visibility: regNumError ? "visible" : "hidden",
-            minHeight: 16,
-          }}
-        >
-          장애등록번호 16자리를 입력해주세요
-        </span>
       </div>
 
-      <div
-        style={{
-          width: "100%",
-          marginTop: 25,
-          marginLeft: "50px",
-          textAlign: "left",
-        }}
-      >
-        <span
-          style={{
-            color: "#000",
-            fontSize: "24px",
-            fontStyle: "normal",
-            fontWeight: 600,
-            lineHeight: "28px",
-          }}
-        >
-          장애분류
-        </span>
-      </div>
-      <div style={{ width: 353, marginTop: 48, marginBottom: 21 }}>
+      {/* 급수 선택 */}
+      <div style={{ width: 353, marginTop: 48 }}>
         <GradeDropdown value={grade} onChange={setGrade} />
       </div>
+
+      {/* 분류 버튼들 */}
       {grade && (
-        <div
+        <motion.div
           style={{
             width: 341,
             display: "flex",
             flexWrap: "wrap",
             gap: "8px",
-            marginTop: 8,
-            marginBottom: 32,
+            marginTop: 16,
           }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
         >
           {DISABLED_TYPES.map((type) => (
             <button
@@ -415,49 +332,52 @@ const DisabledRegist: React.FC = () => {
               type="button"
               onClick={() => handleTypeClick(type)}
               style={{
-                // padding: "6px 20px",
                 borderRadius: "100px",
-                border:"1px solid #59A1D7",
+                border: "1px solid #59A1D7",
                 background: selectedTypes.includes(type) ? "#6BB1E4" : "#fff",
                 color: selectedTypes.includes(type) ? "#fff" : "#59A1D7",
                 fontSize: 15,
                 fontWeight: 600,
                 cursor: "pointer",
                 transition: "background 0.2s, color 0.2s",
-                minWidth: "100px",
-                height: "36px",
-                boxSizing: "border-box",  
+                minWidth: 100,
+                height: 36,
                 flex: "1 0 90px",
-                textAlign: "center",
               }}
             >
               {type}
             </button>
           ))}
-        </div>
+        </motion.div>
       )}
 
-      <button
+      {/* 다음 버튼 */}
+      <motion.button
         style={{
           position: "absolute",
           bottom: 32,
           left: 20,
-          width: "353px",
-          height: "50px",
-          borderRadius: "100px",
+          width: 353,
+          height: 50,
+          borderRadius: 100,
           border: "1px solid #59A1D7",
-          background: "#6BB1E4",
+          background: isValid ? "#6BB1E4" : "#A8D4EF",
           color: "#fff",
-          fontSize: "20px",
+          fontSize: 20,
           fontWeight: 600,
           cursor: isValid ? "pointer" : "not-allowed",
           letterSpacing: 2,
         }}
         disabled={!isValid}
         onClick={handleNext}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        whileHover={isValid ? { scale: 1.02 } : {}}
+        whileTap={isValid ? { scale: 0.98 } : {}}
       >
         다음
-      </button>
+      </motion.button>
     </div>
   );
 };

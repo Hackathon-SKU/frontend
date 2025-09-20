@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-const fadeInStyle: React.CSSProperties = {
-  opacity: 1,
-  transition: "opacity 0.5s",
-};
-
-const fadeOutStyle: React.CSSProperties = {
-  opacity: 0,
-  transition: "opacity 0.5s",
-  pointerEvents: "none",
-  height: 0,
-  overflow: "hidden",
-};
+import { motion } from "framer-motion";
 
 const LICENSE_OPTIONS = [
   "사회복지사 1급",
@@ -88,12 +76,12 @@ const RegisterLicense: React.FC = () => {
       }}
     >
       <div style={{ height: 60 }} />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
+
+      {/* 로고 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <div
           style={{
@@ -108,14 +96,18 @@ const RegisterLicense: React.FC = () => {
           }}
         >
           <img
-            src="/signIn/logo.png"
+            src="/welcome/mainLogo.svg"
             alt="logo"
             style={{ width: 40, height: 40, objectFit: "contain" }}
           />
         </div>
-      </div>
+      </motion.div>
 
-      <div
+      {/* Progress */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
         style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}
       >
         <div
@@ -138,28 +130,37 @@ const RegisterLicense: React.FC = () => {
             left: "80%",
           }}
         />
-        <span
+        {/* 강조 모션 */}
+        <motion.span
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{
+            duration: 0.5,
+            ease: "easeOut",
+            delay: 0.2,
+            type: "spring",
+            stiffness: 200,
+          }}
           style={{
             position: "absolute",
             textAlign: "left",
             color: "#8A8A8A",
             fontSize: "16px",
             left: "230px",
-            fontStyle: "normal",
             fontWeight: 600,
             lineHeight: "30px",
             whiteSpace: "nowrap",
-            width: "auto",
-            maxWidth: "100%",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
           }}
         >
           거의 다 왔어요!
-        </span>
-      </div>
+        </motion.span>
+      </motion.div>
 
-      <div
+      {/* Title */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
         style={{
           marginTop: 64,
           width: "100%",
@@ -171,15 +172,26 @@ const RegisterLicense: React.FC = () => {
           style={{
             color: "#000",
             fontSize: "24px",
-            fontStyle: "normal",
-            fontWeight: "600",
+            fontWeight: 600,
             lineHeight: "28px",
           }}
         >
-          소지하고 있는 복지 자격증을 <br/>선택해주세요
+          소지하고 있는 복지 자격증을 <br />
+          선택해주세요
         </span>
-      </div>
-      <div
+      </motion.div>
+
+      {/* 자격증 버튼들 */}
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.05, delayChildren: 0.4 },
+          },
+        }}
         style={{
           width: 353,
           marginTop: 69,
@@ -190,10 +202,14 @@ const RegisterLicense: React.FC = () => {
         }}
       >
         {LICENSE_OPTIONS.map((license) => (
-          <button
+          <motion.button
             key={license}
             type="button"
             onClick={() => handleSelect(license)}
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0 },
+            }}
             style={{
               borderRadius: "100px",
               border: "1px solid #59A1D7",
@@ -204,19 +220,17 @@ const RegisterLicense: React.FC = () => {
               cursor: "pointer",
               transition: "background 0.2s, color 0.2s",
               height: "36px",
-              boxSizing: "border-box",
-              textAlign: "center",
               padding: "0 14px",
-              width: "auto",
-              flex: "none",
               whiteSpace: "nowrap",
             }}
           >
             {license}
-          </button>
+          </motion.button>
         ))}
-      </div>
-      <button
+      </motion.div>
+
+      {/* 다음 버튼 */}
+      <motion.button
         style={{
           position: "absolute",
           bottom: 32,
@@ -225,7 +239,7 @@ const RegisterLicense: React.FC = () => {
           height: "50px",
           borderRadius: "100px",
           border: "1px solid #59A1D7",
-          background: "#6BB1E4",
+          background: isValid ? "#6BB1E4" : "#A8D4EF",
           color: "#fff",
           fontSize: "20px",
           fontWeight: 600,
@@ -234,12 +248,16 @@ const RegisterLicense: React.FC = () => {
         }}
         disabled={!isValid}
         onClick={handleNext}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.5 }}
+        whileHover={isValid ? { scale: 1.02 } : {}}
+        whileTap={isValid ? { scale: 0.98 } : {}}
       >
         다음
-      </button>
+      </motion.button>
     </div>
   );
 };
 
 export default RegisterLicense;
-       

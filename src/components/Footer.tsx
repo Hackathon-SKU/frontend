@@ -10,7 +10,7 @@ const Footer = () => {
           {footerItem.map((item) => {
             const isActive =
               item.path === "/main"
-                ? location.pathname === "/main" || "/main/profile/:id"
+                ? location.pathname === "/main"
                 : location.pathname.startsWith(item.path);
             return (
               <Link

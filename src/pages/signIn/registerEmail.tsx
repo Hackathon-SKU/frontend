@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const EMAIL_DOMAINS = [
   "naver.com",
@@ -32,39 +33,18 @@ const RegisterEmail: React.FC = () => {
     }
   }, [domainSelect]);
 
-  useEffect(() => {
-    const originalHtmlMargin = document.documentElement.style.margin;
-    const originalHtmlPadding = document.documentElement.style.padding;
-    const originalBodyMargin = document.body.style.margin;
-    const originalBodyPadding = document.body.style.padding;
-    document.documentElement.style.margin = "0";
-    document.documentElement.style.padding = "0";
-    document.body.style.margin = "0";
-    document.body.style.padding = "0";
-    return () => {
-      document.documentElement.style.margin = originalHtmlMargin;
-      document.documentElement.style.padding = originalHtmlPadding;
-      document.body.style.margin = originalBodyMargin;
-      document.body.style.padding = originalBodyPadding;
-    };
-  }, []);
-
   const isValid =
     emailId.length > 0 &&
-    (
-      showDomainInput
-        ? customDomain.trim().length > 0
-        : domainSelect.trim().length > 0
-    );
+    (showDomainInput
+      ? customDomain.trim().length > 0
+      : domainSelect.trim().length > 0);
 
   const handleNext = () => {
     if (!isValid) return;
     const email =
       emailId +
       "@" +
-      (showDomainInput
-        ? customDomain.trim()
-        : domainSelect.trim());
+      (showDomainInput ? customDomain.trim() : domainSelect.trim());
     localStorage.setItem("registerEmail", email);
     navigate("/register-password");
   };
@@ -93,7 +73,12 @@ const RegisterEmail: React.FC = () => {
       }}
     >
       <div style={{ height: 60 }} />
-      <div
+
+      {/* 로고 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -113,54 +98,61 @@ const RegisterEmail: React.FC = () => {
           }}
         >
           <img
-            src="/signIn/logo.png"
+            src="/welcome/mainLogo.svg"
             alt="logo"
             style={{ width: 40, height: 40, objectFit: "contain" }}
           />
         </div>
-      </div>
+      </motion.div>
 
-    <div
-      style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}
-    >
-      <div
-        style={{
-        width: "100%",
-        height: 10,
-        background: "#F2F2F2",
-        borderRadius: 10,
-        position: "relative",
-        marginBottom: "3px"
-        }}
-      />
-      <div
-        style={{
-        width: "20%",
-        height: 10,
-        background: "#6BB1E4",
-        borderRadius: 10,
-        position: "absolute",
-        top: 0,
-        left: "20%",
-        }}
-      />
-      <span
-        style={{
-        position: "absolute",
-        textAlign: "left",
-        color: "#8A8A8A",
-        fontSize: "16px",
-        left: "301px",
-        fontStyle: "normal",
-        fontWeight: 600,
-        lineHeight: "30px" 
-        }}
+      {/* Progress bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+        style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}
       >
-        2/5
-      </span>
-    </div>
+        <div
+          style={{
+            width: "100%",
+            height: 10,
+            background: "#F2F2F2",
+            borderRadius: 10,
+            position: "relative",
+            marginBottom: "3px",
+          }}
+        />
+        <div
+          style={{
+            width: "20%",
+            height: 10,
+            background: "#6BB1E4",
+            borderRadius: 10,
+            position: "absolute",
+            top: 0,
+            left: "20%",
+          }}
+        />
+        <span
+          style={{
+            position: "absolute",
+            textAlign: "left",
+            color: "#8A8A8A",
+            fontSize: "16px",
+            left: "301px",
+            fontWeight: 600,
+            lineHeight: "30px",
+          }}
+        >
+          2/5
+        </span>
+      </motion.div>
 
-      <div
+      {/* 타이틀 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
         style={{
           marginTop: 64,
           width: "100%",
@@ -172,16 +164,19 @@ const RegisterEmail: React.FC = () => {
           style={{
             color: "#000",
             fontSize: "24px",
-            fontStyle: "normal",
             fontWeight: 600,
-            lineHeight: "28px"
+            lineHeight: "28px",
           }}
         >
           이메일을 입력해주세요
         </span>
-      </div>
+      </motion.div>
 
-      <div
+      {/* 입력창 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -191,7 +186,7 @@ const RegisterEmail: React.FC = () => {
           gap: 8,
         }}
       >
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <div style={{ flex: 1 }}>
           <input
             type="text"
             value={emailId}
@@ -204,48 +199,37 @@ const RegisterEmail: React.FC = () => {
               outline: "none",
               fontSize: 15,
               background: "transparent",
-              padding: "4px 0 4px 8px", 
+              padding: "4px 0 4px 8px",
               width: "100%",
             }}
           />
         </div>
-        <span style={{ color: "#8A8A8A", fontSize: 24}}>
-          @
-        </span>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            position: "relative",
-          }}
-        >
+        <span style={{ color: "#8A8A8A", fontSize: 24 }}>@</span>
+        <div style={{ flex: 1, position: "relative" }}>
           {!showDomainInput ? (
             <select
-                value={domainSelect}
-                onChange={(e) => setDomainSelect(e.target.value)}
-                style={{
-                    border: "none",
-                    borderBottom: "2px solid #6BB1E4",
-                    outline: "none",
-                    fontSize: 15,
-                    background: "transparent",
-                    padding: "4px 0 4px 8px", 
-                    width: "100%",
-                    appearance: "none",
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    color: domainSelect === "" ? "#8A8A8A" : "#111",
-                }}
+              value={domainSelect}
+              onChange={(e) => setDomainSelect(e.target.value)}
+              style={{
+                border: "none",
+                borderBottom: "2px solid #6BB1E4",
+                outline: "none",
+                fontSize: 15,
+                background: "transparent",
+                padding: "4px 0 4px 8px",
+                width: "100%",
+                appearance: "none",
+                color: domainSelect === "" ? "#8A8A8A" : "#111",
+              }}
             >
-                <option value="" disabled hidden style={{ color: "#8A8A8A" }}>
-                    선택해주세요
+              <option value="" disabled hidden>
+                선택해주세요
+              </option>
+              {EMAIL_DOMAINS.map((d) => (
+                <option key={d} value={d}>
+                  {d}
                 </option>
-                {EMAIL_DOMAINS.map((d) => (
-                    <option key={d} value={d} style={{ color: "#111" }}>
-                        {d}
-                    </option>
-                ))}
+              ))}
             </select>
           ) : (
             <input
@@ -272,17 +256,16 @@ const RegisterEmail: React.FC = () => {
                 position: "absolute",
                 right: 8,
                 top: 12,
-                pointerEvents: "none",
                 width: 8,
-                height: "auto",
-                objectFit: "contain",
+                pointerEvents: "none",
               }}
             />
           )}
         </div>
-      </div>
+      </motion.div>
 
-      <button
+      {/* 다음 버튼 */}
+      <motion.button
         style={{
           position: "absolute",
           bottom: 32,
@@ -291,18 +274,23 @@ const RegisterEmail: React.FC = () => {
           height: "50px",
           borderRadius: "100px",
           border: "1px solid #59A1D7",
-          background: "#6BB1E4",
+          background: isValid ? "#6BB1E4" : "#A8D4EF",
           color: "#fff",
           fontSize: "20px",
           fontWeight: 600,
-          cursor: "pointer",
+          cursor: isValid ? "pointer" : "not-allowed",
           letterSpacing: 2,
         }}
         disabled={!isValid}
         onClick={handleNext}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
+        whileHover={isValid ? { scale: 1.02 } : {}}
+        whileTap={isValid ? { scale: 0.98 } : {}}
       >
         다음
-      </button>
+      </motion.button>
     </div>
   );
 };

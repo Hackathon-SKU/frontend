@@ -12,19 +12,21 @@ import RegisterPW from "../pages/signIn/registerPassword";
 import RegisterInfo from "../pages/signIn/registerInfo";
 import DisabledRegist from "../pages/signIn/disabledRegist";
 import RegisterEnd from "../pages/signIn/registerEnd";
-import ProfilePage from "../pages/Main/Profile/Profile";
+import DisabledPage from "../pages/Main/Profile/Disabled";
 import UploadPost from "../pages/uploadPost/upload";
 import Login from "../pages/logIn/login";
 import RegisterLicense from "../pages/signIn/registerLicense";
 import RegisterPhoto from "../pages/signIn/registerPhoto";
 import DisabledMain from "../pages/Main/disabledMain";
+import Splash from "../components/Splash";
 
 const publicLayout: RouteObject[] = [
   {
     path: "/",
     element: <BaseLayout protectedRoutes={false} />,
     children: [
-      { index: true, element: <Welcome /> },
+      { index: true, element: <Splash /> },
+      { path: "/welcome", element: <Welcome /> },
       { path: "login", element: <Login /> },
       { path: "register-type", element: <RegisterType /> },
       { path: "register-email", element: <RegisterEmail /> },
@@ -33,6 +35,42 @@ const publicLayout: RouteObject[] = [
       { path: "disabledRegist", element: <DisabledRegist /> },
       { path: "registerLicense", element: <RegisterLicense /> },
       { path: "register-end", element: <RegisterEnd /> },
+      {
+        path: "main",
+        children: [
+          { index: true, element: <Main /> },
+          // { path: "detail", element: <Details /> }, // Details import 및 라우트 제거
+          {
+            path: "disabled/:id",
+            element: <DisabledPage />,
+          },
+          {
+            path: "profile/:id",
+            element: <></>,
+          },
+
+          {
+            path: "report",
+            element: <Report />,
+          },
+          {
+            path: "location",
+            element: <Location />,
+          },
+          {
+            path: "chat",
+            element: <Chat />,
+          },
+          {
+            path: "info",
+            element: <Info />,
+          },
+          {
+            path: "upload",
+            element: <UploadPost />,
+          },
+        ],
+      },
       { path: "register-photo", element: <RegisterPhoto /> },
     ],
   },
@@ -40,43 +78,14 @@ const publicLayout: RouteObject[] = [
 
 const privateLayout: RouteObject[] = [
   {
-    path: "/main",
-    element: <BaseLayout protectedRoutes={true} />,
-    children: [
-      { index: true, element: <Main /> },
-      // { path: "detail", element: <Details /> }, // Details import 및 라우트 제거
-      {
-        path: "profile/:id",
-        element: <ProfilePage />,
-      },
-      {
-        path: "report",
-        element: <Report />,
-      },
-      {
-        path: "location",
-        element: <Location />,
-      },
-      {
-        path: "chat",
-        element: <Chat />,
-      },
-      {
-        path: "info",
-        element: <Info />,
-      },
-      {
-        path: "upload",
-        element: <UploadPost />,
-      },
-    ],
+    // path: "/main",
+    // element: <BaseLayout protectedRoutes={true} />,
+    // children: [{ index: true, element: <Main /> }],
   },
   {
     path: "/disabledMain",
     element: <BaseLayout protectedRoutes={true} />,
-    children: [
-      { index: true, element: <DisabledMain /> },
-    ],
+    children: [{ index: true, element: <DisabledMain /> }],
   },
 ];
 

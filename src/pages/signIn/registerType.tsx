@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const RegisterType: React.FC = () => {
   const [selected, setSelected] = useState<"user" | "worker" | null>(null);
@@ -38,7 +39,12 @@ const RegisterType: React.FC = () => {
       }}
     >
       <div style={{ height: 60 }} />
-      <div
+
+      {/* 로고 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -58,14 +64,18 @@ const RegisterType: React.FC = () => {
           }}
         >
           <img
-            src="/signIn/logo.png"
+            src="/welcome/mainLogo.svg"
             alt="logo"
             style={{ width: 40, height: 40, objectFit: "contain" }}
           />
         </div>
-      </div>
+      </motion.div>
 
-      <div
+      {/* Progress bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
         style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}
       >
         <div
@@ -95,16 +105,19 @@ const RegisterType: React.FC = () => {
             color: "#8A8A8A",
             fontSize: "16px",
             left: "301px",
-            fontStyle: "normal",
             fontWeight: 600,
             lineHeight: "30px",
           }}
         >
           1/5
         </span>
-      </div>
+      </motion.div>
 
-      <div
+      {/* 타이틀 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
         style={{
           marginTop: 64,
           width: "100%",
@@ -116,16 +129,19 @@ const RegisterType: React.FC = () => {
           style={{
             color: "#000",
             fontSize: "24px",
-            fontStyle: "normal",
             fontWeight: 600,
             lineHeight: "28px",
           }}
         >
           가입 유형을 선택해주세요
         </span>
-      </div>
+      </motion.div>
 
-      <div
+      {/* 선택 버튼 */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -153,7 +169,6 @@ const RegisterType: React.FC = () => {
             cursor: "pointer",
             transition: "background 0.2s",
             display: "flex",
-            flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
             gap: "15px",
@@ -185,7 +200,6 @@ const RegisterType: React.FC = () => {
             cursor: "pointer",
             transition: "background 0.2s",
             display: "flex",
-            flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
             gap: "74px",
@@ -203,9 +217,10 @@ const RegisterType: React.FC = () => {
           />
           복지사
         </button>
-      </div>
+      </motion.div>
 
-      <button
+      {/* 다음 버튼 */}
+      <motion.button
         style={{
           position: "absolute",
           bottom: 32,
@@ -214,7 +229,7 @@ const RegisterType: React.FC = () => {
           height: "50px",
           borderRadius: "100px",
           border: "1px solid #59A1D7",
-          background: "#6BB1E4",
+          background: selected ? "#6BB1E4" : "#A8D4EF",
           color: "#fff",
           fontSize: "20px",
           fontWeight: 600,
@@ -223,9 +238,14 @@ const RegisterType: React.FC = () => {
         }}
         disabled={!selected}
         onClick={handleNext}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
+        whileHover={selected ? { scale: 1.02 } : {}}
+        whileTap={selected ? { scale: 0.98 } : {}}
       >
         다음
-      </button>
+      </motion.button>
     </div>
   );
 };

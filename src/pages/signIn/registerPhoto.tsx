@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const RegisterPhoto: React.FC = () => {
   const [preview, setPreview] = useState<string | null>(null);
@@ -44,7 +45,6 @@ const RegisterPhoto: React.FC = () => {
     if (!preview || loading) return;
     setLoading(true);
 
-    // 데이터 조립
     const email = localStorage.getItem("registerEmail") || "";
     const password = localStorage.getItem("registerPassword") || "";
     const name = localStorage.getItem("registerName") || "";
@@ -52,8 +52,10 @@ const RegisterPhoto: React.FC = () => {
     const birth = localStorage.getItem("registerBirth") || "";
     const role = "CAREGIVER";
 
-    if (gender === "남" || gender === "MALE" || gender === "MEN") gender = "MEN";
-    else if (gender === "여" || gender === "FEMALE" || gender === "WOMEN") gender = "WOMEN";
+    if (gender === "남" || gender === "MALE" || gender === "MEN")
+      gender = "MEN";
+    else if (gender === "여" || gender === "FEMALE" || gender === "WOMEN")
+      gender = "WOMEN";
 
     const birthDate =
       birth.length === 8
@@ -62,7 +64,7 @@ const RegisterPhoto: React.FC = () => {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_BASE_URL}auth/join`,
+        `${import.meta.env.VITE_BASE_URL}/auth/join`,
         {
           email,
           password,
@@ -73,16 +75,14 @@ const RegisterPhoto: React.FC = () => {
         },
         {
           headers: {
-            "accept": "*/*",
+            accept: "*/*",
             "Content-Type": "application/json",
           },
         }
       );
       navigate("/register-end");
-    } catch (e) {
-      alert("회원가입에 실패했습니다.");
     } finally {
-      setLoading(false);
+      console.log(setLoading(false));
     }
   };
 
@@ -110,7 +110,13 @@ const RegisterPhoto: React.FC = () => {
       }}
     >
       <div style={{ height: 60 }} />
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <div
           style={{
             width: 56,
@@ -124,13 +130,17 @@ const RegisterPhoto: React.FC = () => {
           }}
         >
           <img
-            src="/signIn/logo.png"
+            src="/welcome/mainLogo.svg"
             alt="logo"
             style={{ width: 40, height: 40, objectFit: "contain" }}
           />
         </div>
       </div>
-      <div style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}>
+
+      {/* 진행바 */}
+      <div
+        style={{ width: 325, margin: "35px auto 0 auto", position: "relative" }}
+      >
         <div
           style={{
             width: "100%",
@@ -151,26 +161,26 @@ const RegisterPhoto: React.FC = () => {
             left: "80%",
           }}
         />
-        <span
+        <motion.span
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: [0.8, 1.1, 0.95, 1.05, 1], opacity: 1 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
           style={{
             position: "absolute",
             textAlign: "left",
             color: "#8A8A8A",
             fontSize: "16px",
             left: "230px",
-            fontStyle: "normal",
             fontWeight: 600,
             lineHeight: "30px",
             whiteSpace: "nowrap",
-            width: "auto",
-            maxWidth: "100%",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
           }}
         >
           거의 다 왔어요!
-        </span>
+        </motion.span>
       </div>
+
+      {/* 안내 문구 */}
       <div
         style={{
           marginTop: 64,
@@ -183,14 +193,16 @@ const RegisterPhoto: React.FC = () => {
           style={{
             color: "#000",
             fontSize: "24px",
-            fontStyle: "normal",
             fontWeight: 600,
             lineHeight: "28px",
           }}
         >
-          복지 자격증 인증 사진을 <br />첨부해주세요
+          복지 자격증 인증 사진을 <br />
+          첨부해주세요
         </span>
       </div>
+
+      {/* 업로드 박스 */}
       <div style={{ width: 353, marginTop: 62, marginBottom: 32 }}>
         <div
           style={{
@@ -231,7 +243,12 @@ const RegisterPhoto: React.FC = () => {
               <img
                 src="/signIn/camera.png"
                 alt="카메라"
-                style={{ width: 51, height: 51, marginBottom: 3, marginTop: 16 }}
+                style={{
+                  width: 51,
+                  height: 51,
+                  marginBottom: 3,
+                  marginTop: 16,
+                }}
               />
               <span style={{ color: "#6BB1E4", fontSize: 10, fontWeight: 500 }}>
                 사진 첨부
@@ -240,7 +257,9 @@ const RegisterPhoto: React.FC = () => {
           )}
         </div>
       </div>
-      <button
+
+      {/* 버튼 */}
+      <motion.button
         style={{
           position: "absolute",
           bottom: 32,
@@ -249,7 +268,7 @@ const RegisterPhoto: React.FC = () => {
           height: "50px",
           borderRadius: "100px",
           border: "1px solid #59A1D7",
-          background: "#6BB1E4",
+          background: preview && !loading ? "#6BB1E4" : "#A8D4EF",
           color: "#fff",
           fontSize: "20px",
           fontWeight: 600,
@@ -258,9 +277,14 @@ const RegisterPhoto: React.FC = () => {
         }}
         disabled={!preview || loading}
         onClick={handleNext}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        whileHover={preview && !loading ? { scale: 1.02 } : {}}
+        whileTap={preview && !loading ? { scale: 0.98 } : {}}
       >
         {loading ? "회원가입 중..." : "다음"}
-      </button>
+      </motion.button>
     </div>
   );
 };
