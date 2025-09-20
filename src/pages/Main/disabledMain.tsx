@@ -1,9 +1,8 @@
-// import MainHomeEmpty from "../../components/Main/MainHomeEmpty";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MainList from "../../components/Main/MainList";
 import MainNavbar from "../../components/Main/MainNavbar";
-import { mainDisabledMocks } from "../../mocks/MainMockItem"; // mainMockItems import 추가
+import { mainDisabledMocks } from "../../mocks/disabledMainMockItem";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -17,11 +16,11 @@ const Main = () => {
   }, [navigate]);
 
   return (
-    <>
+    <div className="min-h-screen bg-[#EEEEEE]">
       <MainNavbar />
-      <div className="relative bg-[#EEEEEE] flex flex-col">
+      <div className="relative flex flex-col w-[393px] mx-auto"> 
         {/* 지도 영역 */}
-        <div className="relative w-[393px] h-[120px]">
+        <div className="relative w-full h-[120px]">
           <img
             src="/welcome/mainBg.svg"
             alt="지도 배경"
@@ -53,11 +52,12 @@ const Main = () => {
 
         {/* 리스트 영역 */}
         <div className="py-2 space-y-[8px] pb-[73px]">
-          {mainDisabledMocks.map((item) => (
-            <MainList item={item} />
+          {mainDisabledMocks.map((item, index) => (
+            <MainList key={index} item={item} />
           ))}
         </div>
-        {/* 모달 */}
+
+        {/* 모달 버튼 */}
         <button
           onClick={() => navigate("/main/upload")}
           className="fixed bottom-[90px] right-6 bg-[#6BB1E4] border border-[#59A1D7] text-white text-[14px] font-semibold rounded-full w-[84px] h-[38px] z-40"
@@ -65,7 +65,7 @@ const Main = () => {
           + 글쓰기
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

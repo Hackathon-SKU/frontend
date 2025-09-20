@@ -6,7 +6,9 @@ interface BaseLayoutProps {
 
 const BaseLayout = ({ protectedRoutes }: BaseLayoutProps) => {
   const location = useLocation();
-  const isMainPage = location.pathname.startsWith("/main");
+ const showFooter =
+    location.pathname.startsWith("/main") ||
+    location.pathname.startsWith("/disabledMain");
 
   // 로그인 안되있으면 로그인으로 돌아오기
   // if (protectedRoutes && !isLoggedIn) {
@@ -18,7 +20,7 @@ const BaseLayout = ({ protectedRoutes }: BaseLayoutProps) => {
     <>
       <div className="min-h-screen flex flex-col">
         <Outlet />
-        {isMainPage && <Footer />}
+        {showFooter && <Footer />}
       </div>
     </>
   );
