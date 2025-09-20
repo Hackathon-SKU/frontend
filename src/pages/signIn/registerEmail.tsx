@@ -50,7 +50,12 @@ const RegisterEmail: React.FC = () => {
   }, []);
 
   const isValid =
-    emailId.length > 0 && (domain.length > 0 || customDomain.length > 0);
+    emailId.length > 0 &&
+    (
+      showDomainInput
+        ? customDomain.trim().length > 0
+        : domainSelect.trim().length > 0
+    );
 
   const handleNext = () => {
     if (!isValid) return;
@@ -59,7 +64,7 @@ const RegisterEmail: React.FC = () => {
       "@" +
       (showDomainInput
         ? customDomain.trim()
-        : domain.trim());
+        : domainSelect.trim());
     localStorage.setItem("registerEmail", email);
     navigate("/register-password");
   };
@@ -189,6 +194,7 @@ const RegisterEmail: React.FC = () => {
           <input
             type="text"
             value={emailId}
+            required
             onChange={(e) => setEmailId(e.target.value)}
             placeholder="이메일"
             style={{
@@ -291,6 +297,7 @@ const RegisterEmail: React.FC = () => {
           cursor: "pointer",
           letterSpacing: 2,
         }}
+        disabled={!isValid}
         onClick={handleNext}
       >
         다음
