@@ -65,7 +65,10 @@ const Welcome = () => {
         <button className="w-full py-3 bg-[#6BB1E4] text-white font-semibold rounded-full shadow">
           프로필 만들기
         </button>
-        <button className="text-[#22222280] font-[600] text-[16px]">
+        <button
+          className="text-[#22222280] font-[600] text-[16px]"
+          onClick={() => window.location.href = '/login'}
+        >
           로그인
         </button>
       </div>

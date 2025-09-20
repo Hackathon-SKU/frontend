@@ -43,7 +43,7 @@ const UploadPost: React.FC = () => {
     const accessToken = sessionStorage.getItem("accessToken");
     if (!accessToken) {
       alert("로그인 후 이용 가능합니다.");
-      navigate("/login"); // 로그인 페이지로 이동
+      navigate("/login"); 
       return;
     }
     const userId = getUserId();
