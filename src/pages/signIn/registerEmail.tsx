@@ -22,6 +22,7 @@ const RegisterEmail: React.FC = () => {
   const [showDomainInput, setShowDomainInput] = useState(false);
   const navigate = useNavigate();
 
+  console.log(domain);
   useEffect(() => {
     if (domainSelect === "직접입력") {
       setShowDomainInput(true);

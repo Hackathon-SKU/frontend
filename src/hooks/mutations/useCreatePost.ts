@@ -11,8 +11,7 @@ export function useCreatePost() {
 
   return useMutation<PostingResponseDto, Error, PostingRequestDto>({
     mutationFn: createDisabledPost,
-    onSuccess: (res) => {
-      console.log("작성 성공", res.result?.id);
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QEURY_KEY.post],
       });

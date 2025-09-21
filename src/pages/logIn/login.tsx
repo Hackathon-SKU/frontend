@@ -63,7 +63,7 @@ const Login: React.FC = () => {
         const authHeader = res.headers.authorization;
         if (authHeader.startsWith("Bearer ")) {
           accessToken = authHeader.replace("Bearer ", "");
-          sessionStorage.setItem("accessToken", accessToken);
+          sessionStorage.setItem("accessToken", accessToken as string);
           console.log("accessToken 저장(sessionStorage):", accessToken);
         }
       } else {
