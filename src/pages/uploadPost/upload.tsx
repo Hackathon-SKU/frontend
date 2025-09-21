@@ -14,17 +14,6 @@ type UserInfo = {
   classification: string;
 };
 
-function maskName(name: string) {
-  if (!name) return "";
-  return name[0] + "*".repeat(name.length - 1);
-}
-
-function genderKor(gender: string) {
-  if (gender === "MALE" || gender === "MEN") return "남성";
-  if (gender === "FEMALE" || gender === "WOMEN") return "여성";
-  return gender;
-}
-
 const PERIOD_OPTIONS = ["1개월 이하", "3개월 이상", "6개월 이상", "1년 이상+"];
 const DAY_OPTIONS = ["월", "화", "수", "목", "금", "토", "일"];
 const TIME_OPTIONS = ["오전", "오후", "심야"];
@@ -49,6 +38,7 @@ const UploadPost: React.FC = () => {
       if (idFromUtil) userId = String(idFromUtil);
     }
 
+    console.log(userInfo);
     console.log("sessionStorage 전체:", { ...sessionStorage });
     console.log("accessToken:", accessToken);
     console.log("userId:", userId);
