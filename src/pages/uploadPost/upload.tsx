@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getUserId } from "../../utils/user";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../apis/axiosInstance";
+import toast, { Toaster } from "react-hot-toast";
 
 type UserInfo = {
   name: string;
@@ -40,7 +42,6 @@ const UploadPost: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-   
     const accessToken = sessionStorage.getItem("accessToken");
     let userId = sessionStorage.getItem("userId");
     if (!userId) {
@@ -63,42 +64,48 @@ const UploadPost: React.FC = () => {
       return;
     }
 
-    const url = `${import.meta.env.VITE_BASE_URL}profiles/disabled/info/${userId}`;
+    const url = `${
+      import.meta.env.VITE_BASE_URL
+    }/profiles/disabled/info/${userId}`;
     console.log("GET 내 정보 요청 URL:", url);
 
-    axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }).then((res) => {
-      console.log("내 정보 조회 응답:", res);
-      const data = res.data?.result || {};
-      let age = "";
-      if (data.birthDate) {
-        const birth = new Date(data.birthDate);
-        const today = new Date();
-        age = (today.getFullYear() - birth.getFullYear()).toString();
-      }
-      setUserInfo({
-        name: data.name ?? "",
-        gender: data.gender ?? "",
-        age: age ? parseInt(age, 10) : 0,
-        region: data.region ?? "",
-        grade: "",
-        classification: data.classification
-          ? Object.values(data.classification).join(", ")
-          : "",
+    axiosInstance
+      .get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        console.log("내 정보 조회 응답:", res);
+        const data = res.data?.result || {};
+        let age = "";
+        if (data.birthDate) {
+          const birth = new Date(data.birthDate);
+          const today = new Date();
+          age = (today.getFullYear() - birth.getFullYear()).toString();
+        }
+        setUserInfo({
+          name: data.name ?? "",
+          gender: data.gender ?? "",
+          age: age ? parseInt(age, 10) : 0,
+          region: data.region ?? "",
+          grade: "",
+          classification: data.classification
+            ? Object.values(data.classification).join(", ")
+            : "",
+        });
+      })
+      .catch((e) => {
+        if (e.response) {
+          console.error("내 정보 조회 실패 응답:", e.response);
+          alert(
+            `내 정보 조회에 실패했습니다.\n${e.response.status} ${e.response.statusText}`
+          );
+        } else {
+          console.error("내 정보 조회 실패:", e);
+          // alert("내 정보 조회에 실패했습니다.");
+        }
       });
-    }).catch((e) => {
-      if (e.response) {
-        console.error("내 정보 조회 실패 응답:", e.response);
-        alert(`내 정보 조회에 실패했습니다.\n${e.response.status} ${e.response.statusText}`);
-      } else {
-        console.error("내 정보 조회 실패:", e);
-        alert("내 정보 조회에 실패했습니다.");
-      }
-    });
-    
   }, [navigate]);
 
   const handleDayClick = (d: string) => {
@@ -136,8 +143,8 @@ const UploadPost: React.FC = () => {
       };
       console.log("POST /postings payload:", payload);
 
-      const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}api/postings`,
+      const res = await axiosInstance.post(
+        `${import.meta.env.VITE_BASE_URL}/api/postings`,
         payload,
         {
           headers: {
@@ -148,7 +155,8 @@ const UploadPost: React.FC = () => {
         }
       );
       console.log("POST /postings response:", res.data);
-      alert("공고가 등록되었습니다.");
+      toast.success("공고가 등록되었습니다!");
+
       navigate("/disabledMain");
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -180,31 +188,39 @@ const UploadPost: React.FC = () => {
         fontFamily: "inherit",
       }}
     >
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        height: 93,
-        borderBottom: "1px solid #eee",
-        padding: "0 16px",
-      }}
-    >
-      <img
-        src="/uploadPost/arrow.png"
-        alt="뒤로가기"
-        style={{ width: 24, height: 24, marginRight: 10, cursor: "pointer", marginTop: "61px" }}
-        onClick={() => window.history.back()}
-      />
-      <span
-        style={{ fontWeight: 600, fontSize: 20, flex: 1, marginTop: "61px" }}
+      <Toaster position="top-center" reverseOrder={false} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          height: 93,
+          borderBottom: "1px solid #eee",
+          padding: "0 16px",
+        }}
       >
-        복지사 모집 공고 작성
-      </span>
-      <span style={{ color: "#aaa", fontSize: 15, marginTop: "61px" }}>임시저장</span>
-    </div>
+        <img
+          src="/uploadPost/arrow.png"
+          alt="뒤로가기"
+          style={{
+            width: 24,
+            height: 24,
+            marginRight: 10,
+            cursor: "pointer",
+            marginTop: "61px",
+          }}
+          onClick={() => window.history.back()}
+        />
+        <span
+          style={{ fontWeight: 600, fontSize: 20, flex: 1, marginTop: "61px" }}
+        >
+          복지사 모집 공고 작성
+        </span>
+        <span style={{ color: "#aaa", fontSize: 15, marginTop: "61px" }}>
+          임시저장
+        </span>
+      </div>
 
       <div style={{ padding: "22px 16px 0 19px" }}>
-
         <div style={{ fontWeight: 600, fontSize: 20, marginBottom: 8 }}>
           제목
         </div>
@@ -232,7 +248,15 @@ const UploadPost: React.FC = () => {
           희망 기간/요일/시간
         </div>
         <div style={{ marginBottom: 12 }}>
-          <div style={{ marginLeft: 3, marginBottom: 10, fontSize: 11, color: "#000", fontWeight:" 600"}}>
+          <div
+            style={{
+              marginLeft: 3,
+              marginBottom: 10,
+              fontSize: 11,
+              color: "#000",
+              fontWeight: " 600",
+            }}
+          >
             희망 기간
           </div>
           <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
@@ -259,7 +283,15 @@ const UploadPost: React.FC = () => {
           </div>
         </div>
         <div style={{ marginBottom: 12 }}>
-          <div style={{ marginLeft: 3, marginBottom: 10, fontSize: 11, color: "#000", fontWeight:" 600"}}>
+          <div
+            style={{
+              marginLeft: 3,
+              marginBottom: 10,
+              fontSize: 11,
+              color: "#000",
+              fontWeight: " 600",
+            }}
+          >
             희망 요일
           </div>
           <div style={{ display: "flex", gap: 8 }}>
@@ -287,7 +319,15 @@ const UploadPost: React.FC = () => {
           </div>
         </div>
         <div style={{ marginBottom: 24 }}>
-          <div style={{ marginLeft: 3, marginBottom: 10, fontSize: 11, color: "#000", fontWeight:" 600"}}>
+          <div
+            style={{
+              marginLeft: 3,
+              marginBottom: 10,
+              fontSize: 11,
+              color: "#000",
+              fontWeight: " 600",
+            }}
+          >
             희망 시간대
           </div>
           <div style={{ display: "flex", gap: 8 }}>
@@ -314,7 +354,14 @@ const UploadPost: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ fontWeight: 600, fontSize: 16, marginBottom: 8, marginTop: 25 }}>
+        <div
+          style={{
+            fontWeight: 600,
+            fontSize: 16,
+            marginBottom: 8,
+            marginTop: 25,
+          }}
+        >
           특이사항
         </div>
         <textarea
@@ -348,12 +395,12 @@ const UploadPost: React.FC = () => {
             color: isValid ? "#fff" : "#8A8A8A",
             fontWeight: 600,
             fontSize: 16,
-            marginBottom: 100, 
+            marginBottom: 100,
             cursor: isValid && !loading ? "pointer" : "not-allowed",
             letterSpacing: 1,
             transition: "background 0.2s",
             opacity: loading ? 0.7 : 1,
-            pointerEvents: isValid && !loading ? "auto" : "none", 
+            pointerEvents: isValid && !loading ? "auto" : "none",
           }}
           disabled={!isValid || loading}
           onClick={handleSubmit}
@@ -361,7 +408,7 @@ const UploadPost: React.FC = () => {
           {loading ? "등록 중..." : "작성 완료"}
         </button>
       </div>
-          </div>
+    </div>
   );
 };
 
